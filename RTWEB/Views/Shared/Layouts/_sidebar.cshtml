@@ -1,0 +1,51 @@
+﻿
+
+<style>
+    .sidebarUser{
+    background-color: #042a4a;
+    color: #fff;
+    }
+</style>
+
+@{
+    var roleClaim = User.Claims.FirstOrDefault(c => c.Type == "RoleId");
+    var roleId = roleClaim != null ? int.Parse(roleClaim.Value) : 0;
+}
+
+
+
+    <aside class="app-sidebar sidebarUser shadow" data-bs-theme="dark">
+    <!--begin::Sidebar Brand-->
+    <div class="sidebar-brand">
+        <!--begin::Brand Link-->
+        
+        <a href="/Home/Index" class="brand-link">
+            <!--begin::Brand Image-->
+                <img src="~/assets/img/MainLogo.png"
+                 alt="Hospital"
+                 class="brand-image opacity-75 shadow" />
+            <span class="brand-text fw-light">RT  Management</span>
+        </a>
+      
+        <!--end::Brand Link-->
+    </div>
+    <!--end::Sidebar Brand-->
+    <!--begin::Sidebar Wrapper-->
+    <div class="sidebar-wrapper">
+        <nav class="mt-2">
+            <!--begin::Sidebar Menu-->
+            <ul class="nav sidebar-menu flex-column"
+                data-lte-toggle="treeview"
+                role="menu"
+                data-accordion="false">
+
+                    <partial name="Layouts/Menus/_Appointment" />
+                        
+            </ul>
+            <!--end::Sidebar Menu-->
+        </nav>
+    </div>
+    <!--end::Sidebar Wrapper-->
+</aside>
+<!--end::Sidebar-->
+

@@ -1,0 +1,351 @@
+﻿@{
+    var username = User.Identity?.Name; 
+}
+
+@if (User.Identity != null && User.Identity.IsAuthenticated)
+{
+    @if (username == "admin")
+    {
+
+        <li class="nav-item">
+            <a href="#" class="nav-link">
+                <i class="bi bi-calendar-check"></i>
+
+                <p>
+                    Basic
+                    <i class="nav-arrow bi bi-chevron-right"></i>
+                </p>
+            </a>
+
+
+
+
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a asp-controller="Domain" asp-action="Index" class="nav-link">
+                        <i class="ms-4 bi bi-globe"></i>
+                        <p>Domain List</p>
+                    </a>
+                </li>
+
+            </ul>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a asp-controller="Project" asp-action="Index" class="nav-link">
+                        <i class="ms-4 bi bi-folder-fill"></i>
+                        <p>Project List</p>
+                    </a>
+                </li>
+
+            </ul>
+
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a asp-controller="Team" asp-action="Index" class="nav-link">
+                        <i class="ms-4 bi bi-people"></i>
+                        <p>Team List</p>
+                    </a>
+                </li>
+
+            </ul>
+
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a asp-controller="Issue" asp-action="Index" class="nav-link">
+                        @* <i class="ms-4 bi bi-people"></i> *@
+                        <i class="ms-4 bi bi-exclamation-triangle"></i>
+                        <p>Issue List</p>
+                    </a>
+                </li>
+
+            </ul>
+
+        </li>
+
+
+        <li class="nav-item">
+            <a href="#" class="nav-link">
+                <i class="bi bi-bar-chart-line"></i>
+
+                <p>
+                    Update List
+                    <i class="nav-arrow bi bi-chevron-right"></i>
+                </p>
+            </a>
+
+
+
+
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a asp-controller="Update" asp-action="Index" class="nav-link">
+                        <i class="ms-4 bi bi-pie-chart"></i>
+                        <p>Update List</p>
+                    </a>
+                </li>
+
+            </ul>
+
+        </li>
+
+        <li class="nav-item">
+            <a href="#" class="nav-link">
+                <i class="bi bi-file-earmark-text"></i>
+
+                <p>
+                    Reports
+                    <i class="nav-arrow bi bi-chevron-right"></i>
+                </p>
+            </a>
+
+
+
+
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a asp-controller="Report" asp-action="IssuePendingReport" class="nav-link">
+                        <i class="ms-4 bi bi-hourglass-split"></i>
+                        <p>Issue Pending</p>
+                    </a>
+                </li>
+
+            </ul>
+
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a asp-controller="Report" asp-action="DominWiseUpdate" class="nav-link">
+                        <i class="ms-4 bi bi-globe"></i>
+                        <p>Domain Wise Update</p>
+                    </a>
+                </li>
+
+            </ul>
+
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a asp-controller="Report" asp-action="DomainUpdateList" class="nav-link">
+
+                        <i class="ms-4 bi bi-list-check"></i>
+                        <p>Update Domin List</p>
+                    </a>
+                </li>
+
+            </ul>
+
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a asp-controller="Report" asp-action="ProjectWiseDomain" class="nav-link">
+
+                        <i class="ms-4 bi bi-list-check"></i>
+                        <p>Project wise Domain</p>
+                    </a>
+                </li>
+
+            </ul>
+
+            
+
+        </li>
+        @* SolvedIssueReport *@
+        <li class="nav-item">
+            <a href="#" class="nav-link">
+                <i class="bi bi-telephone"></i>
+
+                <p>
+                    Support
+                    <i class="nav-arrow bi bi-chevron-right"></i>
+                </p>
+            </a>
+
+
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a asp-controller="OurCustomer" asp-action="Index" class="nav-link">
+                        <i class="ms-4 bi bi-person"></i>
+                        <p>Our Customer</p>
+                    </a>
+                </li>
+
+            </ul>
+
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a asp-controller="CustomerIssue" asp-action="Index" class="nav-link">
+                        <i class="ms-4 bi bi-exclamation-triangle"></i>
+                        <p>Customer Issue</p>
+                    </a>
+                </li>
+
+            </ul>
+
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a asp-controller="SolvedIssue" asp-action="Index" class="nav-link">
+                        <i class="bi bi-check-circle-fill text-success ms-4"></i>
+                        <p>Solved Issue</p>
+                    </a>
+                </li>
+
+            </ul>
+
+        </li>
+
+        <li class="nav-item">
+            <a href="#" class="nav-link">
+                <i class="bi bi-file-earmark-text"></i>
+
+                <p>
+                    Support Reports
+                    <i class="nav-arrow bi bi-chevron-right"></i>
+                </p>
+            </a>
+
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a asp-controller="Report" asp-action="DailySupportReport" class="nav-link">
+                        <i class="ms-4 bi bi-calendar"></i>
+                        <p>Daily Support </p>
+                    </a>
+                </li>
+
+            </ul>
+
+
+            @* <ul class="nav nav-treeview">
+            <li class="nav-item">
+                <a asp-controller="Report" asp-action="SolvedIssueReport" class="nav-link">
+                    <i class="ms-4 bi bi-hourglass-split"></i>
+                    <p>Support Ledger </p>
+                </a>
+            </li>
+
+        </ul> *@
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a asp-controller="Report" asp-action="CustomerLedger" class="nav-link">
+                        <i class="ms-4 bi bi-journal-text"></i>
+                        <p>Customer Ledger </p>
+                    </a>
+                </li>
+
+            </ul>
+
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a asp-controller="Report" asp-action="PendingIssueReport" class="nav-link">
+                        <i class="ms-4 bi bi-hourglass-split"></i>
+                        <p>Pending Support </p>
+                    </a>
+                </li>
+
+            </ul>
+
+        </li>
+
+    }
+    else
+    {
+        <li class="nav-item">
+            <a href="#" class="nav-link">
+                <i class="bi bi-telephone"></i>
+
+                <p>
+                    Support
+                    <i class="nav-arrow bi bi-chevron-right"></i>
+                </p>
+            </a>
+
+
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a asp-controller="OurCustomer" asp-action="Index" class="nav-link">
+                        <i class="ms-4 bi bi-person"></i>
+                        <p>Our Customer</p>
+                    </a>
+                </li>
+
+            </ul>
+
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a asp-controller="CustomerIssue" asp-action="Index" class="nav-link">
+                        <i class="ms-4 bi bi-exclamation-triangle"></i>
+                        <p>Customer Issue</p>
+                    </a>
+                </li>
+
+            </ul>
+
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a asp-controller="SolvedIssue" asp-action="Index" class="nav-link">
+                        <i class="bi bi-check-circle-fill text-success ms-4"></i>
+                        <p>Solved Issue</p>
+                    </a>
+                </li>
+
+            </ul>
+
+        </li>
+
+        <li class="nav-item">
+            <a href="#" class="nav-link">
+                <i class="bi bi-file-earmark-text"></i>
+
+                <p>
+                    Support Reports
+                    <i class="nav-arrow bi bi-chevron-right"></i>
+                </p>
+            </a>
+
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a asp-controller="Report" asp-action="DailySupportReport" class="nav-link">
+                        <i class="ms-4 bi bi-calendar"></i>
+                        <p>Daily Support </p>
+                    </a>
+                </li>
+
+            </ul>
+
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a asp-controller="Report" asp-action="PendingIssueReport" class="nav-link">
+                        <i class="ms-4 bi bi-hourglass-split"></i>
+                        <p>Pending Support </p>
+                    </a>
+                </li>
+
+            </ul>
+
+
+
+        </li>
+
+    }
+        <li class="nav-item">
+            <a href="#" class="nav-link">
+                <i class="bi bi-person"></i>
+
+                <p>
+                    User
+                    <i class="nav-arrow bi bi-chevron-right"></i>
+                </p>
+            </a>
+
+
+
+
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a asp-controller="Account" asp-action="Logout" class="nav-link">
+                        <i class="ms-4 bi bi-door-open"></i>
+                        <p>LogOut</p>
+                    </a>
+                </li>
+
+            </ul>
+
+        </li>
+   
+}
