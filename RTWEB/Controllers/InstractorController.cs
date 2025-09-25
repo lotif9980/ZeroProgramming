@@ -22,6 +22,9 @@ namespace ZPWEB.Controllers
             return View(data);
         }
 
-
+        public IActionResult Save()
+        {
+            return View();
+        }
     }
 }
