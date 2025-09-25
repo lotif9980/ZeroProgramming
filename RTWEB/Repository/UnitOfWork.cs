@@ -7,10 +7,7 @@ namespace ZPWEB.Repository
     {
         protected readonly Db db;
 
-    
-
-        //public IDomainRepository DomainRepository { get; set; }
-        
+        public IInstractorRepository InstractorRepository { get; set; }
 
         public int Complete()
         {
@@ -25,10 +22,12 @@ namespace ZPWEB.Repository
         public UnitOfWork(Db db)
         {
             this.db = db;
-            //DomainRepository = new DomainRepository(db);
-           
+            InstractorRepository = new InstractorRepository(db);
+
+
+
 
         }
-      
+
     }
 }

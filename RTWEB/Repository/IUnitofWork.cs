@@ -2,8 +2,8 @@
 {
     public interface IUnitofWork : IDisposable
     {
-        //IDomainRepository DomainRepository { get; }
-
+        
+        IInstractorRepository InstractorRepository { get; }
 
         int Complete();
     }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ZPWEB.Models;
 
 namespace ZPWEB.Data
 {
@@ -28,7 +29,13 @@ namespace ZPWEB.Data
 
         }
 
-        //public DbSet<Domain> Domains { get; set; }
-        
+        public DbSet<Course> Courses { get; set; }
+        public DbSet<Enrollment> Enrollments { get; set; }
+        public DbSet<Instractor> Instractors { get; set; }
+        public DbSet<Method> Methods { get; set; }
+        public DbSet<Payment> Payments { get; set; }
+        public DbSet<Schedule> Schedules { get; set; }
+        public DbSet<Student> Students { get; set; }
+
     }
 }
