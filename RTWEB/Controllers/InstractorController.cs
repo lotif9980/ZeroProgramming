@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ZPWEB.Helpers;
 using ZPWEB.Repository;
 
 namespace ZPWEB.Controllers
@@ -12,10 +13,15 @@ namespace ZPWEB.Controllers
         }
 
          
-        public IActionResult Index(int size=10, int page)
+        public IActionResult Index(int pageSize=10, int page=1)
         {
-            var data =_unitofWork.InstractorRepository.GetAll();
+            var data =_unitofWork.InstractorRepository.GetAll()
+                        .OrderByDescending(x=>x.Id)
+                        .AsQueryable()
+                        .ToPagedList(page, pageSize);
             return View(data);
         }
+
+
     }
 }
