@@ -16,21 +16,20 @@
                     </div>
                     <div class="card-body">
 
+                        <!-- Code -->
+                        <div class="mb-3 row">
+                            <label asp-for="Code" class="col-sm-3 col-form-label">Code</label>
+                            <div class="col-sm-9">
+                                <input asp-for="Code" class="form-control" id="code" readonly>
+                                <span asp-validation-for="Code" class="text-danger"></span>
+                            </div>
+                        </div>
                         <!-- Customer Name -->
                         <div class="mb-3 row">
                             <label asp-for="Name" class="col-sm-3 col-form-label">Name</label>
                             <div class="col-sm-9">
                                 <input asp-for="Name" class="form-control" id="cName">
                                 <span asp-validation-for="Name" class="text-danger"></span>
-                            </div>
-                        </div>
-
-                        <!-- Address -->
-                        <div class="mb-3 row">
-                            <label asp-for="Address" class="col-sm-3 col-form-label">Address</label>
-                            <div class="col-sm-9">
-                                <input asp-for="Address" class="form-control" id="address">
-                                <span asp-validation-for="Address" class="text-danger"></span>
                             </div>
                         </div>
 
@@ -43,7 +42,15 @@
                             </div>
                         </div>
 
-                       
+                        <!-- Address -->
+                        <div class="mb-3 row">
+                            <label asp-for="Address" class="col-sm-3 col-form-label">Address</label>
+                            <div class="col-sm-9">
+                                <input asp-for="Address" class="form-control" id="address">
+                                <span asp-validation-for="Address" class="text-danger"></span>
+                            </div>
+                        </div>
+
                         <!-- Buttons -->
                         <div class="d-flex justify-content-end gap-2">
                             <button type="reset" class="btn btn-danger">Reset</button>
@@ -56,3 +63,23 @@
         </div>
     </form>
 </div>
+
+<script>
+    $(document).ready(function(){
+        $("#myForm").on('submit',function(){
+            var name=$("#cName").val().trim();
+            var contactNo=$("#contactno").val().trim();
+            var address=$("#address").val().trim();
+
+            var offset=20;
+            var container=$("body");
+
+            if(name==="")offset=createAlert("❌ Name is Required",container,offset)
+            if(contactNo==="")offset=createAlert("❌ Contact no Required",container,offset)
+            if(address==="")offset=createAlert("❌ Address Required",container,offset)
+
+               if($(".field-alert").length >0) return false;
+               this.submit();
+        });
+    })
+</script>

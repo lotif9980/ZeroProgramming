@@ -24,9 +24,6 @@ namespace ZPWEB.Repository
             this.db = db;
             InstractorRepository = new InstractorRepository(db);
 
-
-
-
         }
 
     }
