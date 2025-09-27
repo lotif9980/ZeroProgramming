@@ -67,16 +67,16 @@
 <script>
     $(document).ready(function(){
         $("#myForm").on('submit',function(){
-            var name=$("#cName").val().trim();
-            var contactNo=$("#contactno").val().trim();
-            var address=$("#address").val().trim();
+            var courseName=$("#courseName").val().trim();
+            var courseFee=$("#courseFee").val().trim();
+            var duration=$("#duration").val().trim();
 
             var offset=20;
             var container=$("body");
 
-            if(name==="")offset=createAlert("❌ Name is Required",container,offset)
-            if(contactNo==="")offset=createAlert("❌ Contact no Required",container,offset)
-            if(address==="")offset=createAlert("❌ Address Required",container,offset)
+            if(courseName==="")offset=createAlert("❌ Course Name is Required",container,offset)
+            if(courseFee==="")offset=createAlert("❌ Course Fee Required",container,offset)
+            if(duration==="")offset=createAlert("❌ Duration Required",container,offset)
 
                if($(".field-alert").length >0) return false;
                this.submit();
