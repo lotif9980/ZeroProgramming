@@ -1,6 +1,10 @@
-﻿namespace ZPWEB.Repository
+﻿using ZPWEB.Models;
+
+namespace ZPWEB.Repository
 {
-    public class IMethodRepository
+    public interface IMethodRepository
     {
+        public IEnumerable<Method> GetAll();
+
     }
 }

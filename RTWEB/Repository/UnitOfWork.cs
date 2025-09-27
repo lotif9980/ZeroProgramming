@@ -9,6 +9,7 @@ namespace ZPWEB.Repository
 
         public IInstractorRepository InstractorRepository { get; set; }
         public ICourseRepository CourseRepository { get; set; }
+        public IMethodRepository MethodRepository {  get; set; }
 
         public int Complete()
         {
@@ -25,6 +26,7 @@ namespace ZPWEB.Repository
             this.db = db;
             InstractorRepository = new InstractorRepository(db);
             CourseRepository = new CourseRepository(db);
+            MethodRepository=new MethodRepository(db);
 
         }
 
