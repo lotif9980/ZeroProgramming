@@ -3,6 +3,7 @@
     public class Schedule
     {
         public int Id { get; set; }
+        public string? Code { get; set; }
         public int? CourseId { get; set; }
         public int? Day { get; set; }
         public TimeSpan? StartTime { get; set; }
