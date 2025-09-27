@@ -8,6 +8,7 @@ namespace ZPWEB.Repository
         protected readonly Db db;
 
         public IInstractorRepository InstractorRepository { get; set; }
+        public ICourseRepository CourseRepository { get; set; }
 
         public int Complete()
         {
@@ -23,8 +24,10 @@ namespace ZPWEB.Repository
         {
             this.db = db;
             InstractorRepository = new InstractorRepository(db);
+            CourseRepository = new CourseRepository(db);
 
         }
+
 
     }
 }

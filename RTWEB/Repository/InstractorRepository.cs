@@ -36,11 +36,11 @@ namespace ZPWEB.Repository
 
         public string GenerateCode()
         {
-            var lastCustomerCode = _db.Instractors.OrderByDescending(x => x.Id).Select(x => x.Code).FirstOrDefault();
+            var lastInstroctCode = _db.Instractors.OrderByDescending(x => x.Id).Select(x => x.Code).FirstOrDefault();
 
             string newCode = "00001";
 
-            if(!string.IsNullOrEmpty(lastCustomerCode) && int.TryParse(lastCustomerCode,out int lastCode))
+            if(!string.IsNullOrEmpty(lastInstroctCode) && int.TryParse(lastInstroctCode, out int lastCode))
             {
                 newCode = (lastCode + 1).ToString("D5");
             }

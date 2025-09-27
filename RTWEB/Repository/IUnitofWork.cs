@@ -4,6 +4,7 @@
     {
         
         IInstractorRepository InstractorRepository { get; }
+        ICourseRepository CourseRepository { get; }
 
         int Complete();
     }
