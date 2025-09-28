@@ -15,5 +15,10 @@ namespace ZPWEB.Repository
         {
             return _db.Methods.ToList();
         }
+
+        public void Save(Method method)
+        {
+           _db.Methods.Add(method);
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ZPWEB.Helpers;
+using ZPWEB.Models;
 using ZPWEB.Repository;
 
 namespace ZPWEB.Controllers
@@ -20,6 +21,20 @@ namespace ZPWEB.Controllers
                     .AsQueryable()
                     .ToPagedList(page, pageSize);
             return View(data);
+        }
+
+        [HttpGet]
+        public IActionResult Save()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Save(Method method)
+        {
+            _unitofWork.MethodRepository.Save(method);
+            _unitofWork.Complete();
+            return RedirectToAction("Save");
         }
 
     }
