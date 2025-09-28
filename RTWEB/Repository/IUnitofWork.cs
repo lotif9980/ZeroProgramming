@@ -6,6 +6,7 @@
         IInstractorRepository InstractorRepository { get; }
         ICourseRepository CourseRepository { get; }
         IMethodRepository MethodRepository { get; }
+        IScheduleRepository ScheduleRepository { get; }
 
         int Complete();
     }

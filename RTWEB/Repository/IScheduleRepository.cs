@@ -1,6 +1,9 @@
-﻿namespace ZPWEB.Repository
+﻿using ZPWEB.ViewModel;
+
+namespace ZPWEB.Repository
 {
-    public class IScheduleRepository
+    public interface IScheduleRepository
     {
+        public List<ScheduleVM> GetAll(); 
     }
 }
