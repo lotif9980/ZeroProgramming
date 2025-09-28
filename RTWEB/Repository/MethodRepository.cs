@@ -11,6 +11,8 @@ namespace ZPWEB.Repository
             _db = db;
         }
 
+        
+
         public IEnumerable<Method> GetAll()
         {
             return _db.Methods.ToList();
@@ -19,6 +21,31 @@ namespace ZPWEB.Repository
         public void Save(Method method)
         {
            _db.Methods.Add(method);
+        }
+
+        public string GenerateCode()
+        {
+            var lastMethodCode=_db.Methods.OrderByDescending(x=>x.Id).Select(x=>x.Code).FirstOrDefault();
+
+            string NewCode = "00001";
+
+            if(!string.IsNullOrEmpty(lastMethodCode) && int.TryParse(lastMethodCode,  out int lastCode) )
+            {
+                NewCode =(lastCode + 1).ToString("D5");
+            }
+
+            return NewCode;
+        }
+
+        public bool DuplicateCheck(string name)
+        {
+          return _db.Methods.Any(x=>x.Name== name);
+        }
+
+        public void Delete(int id)
+        {
+            var data = _db.Methods.Find(id);
+            _db.Remove(data);
         }
     }
 }

@@ -6,6 +6,9 @@ namespace ZPWEB.Repository
     {
         public IEnumerable<Method> GetAll();
         public void Save(Method method);
+        public string GenerateCode();
+        public bool DuplicateCheck(string name);
+        public void Delete(int id);
 
     }
 }
