@@ -1,3 +1,29 @@
+------------------28.09.2025
+USE [zpweb]
+GO
+
+/****** Object:  Table [dbo].[Schedules]    Script Date: 28-Sep-25 11:34:14 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Schedules](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Code] [nvarchar](250) NULL,
+	[Name] [nvarchar](250) NULL,
+ CONSTRAINT [PK_Schedules] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
+
+-------------------
+
 USE [zpweb]
 GO
 /****** Object:  Table [dbo].[Courses]    Script Date: 27-Sep-25 5:26:25 PM ******/

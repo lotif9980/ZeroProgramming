@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using ZPWEB.Helpers;
+using ZPWEB.Models;
 using ZPWEB.Repository;
+using ZPWEB.ViewModel;
 
 namespace ZPWEB.Controllers
 {
@@ -19,6 +22,24 @@ namespace ZPWEB.Controllers
                       .AsQueryable()
                       .ToPagedList(page, pageSize);
             return View(data);
+        }
+
+        [HttpGet]
+        public IActionResult Save()
+        {
+            var data = new Schedule
+            {
+                Code = _unitofWork.ScheduleRepository.GenerateCode(),
+            };
+            return View(data);
+        }
+
+        [HttpPost]
+        public IActionResult Save(Schedule schedule)
+        {
+
+
+            return RedirectToAction("Save");
         }
     }
 }

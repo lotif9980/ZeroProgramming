@@ -1,4 +1,6 @@
-﻿namespace ZPWEB.ViewModel
+﻿using ZPWEB.Models;
+
+namespace ZPWEB.ViewModel
 {
     public class ScheduleVM
     {
@@ -12,5 +14,16 @@
         public int? InstractorId { get; set; }
         public string InstractorName { get; set; }
         public string DayName { get; set; }
+    }
+
+    public class ScheduleSaveVM
+    {
+
+        public Schedule Input { get; set; } = new Schedule();
+        public List<Schedule> Schedule { get; set; } = new List<Schedule>();
+        //public Schedule Input { get; set; } = new Schedule();
+        //public Schedule? Schedule { get; set; } = new Schedule();
+        public IEnumerable<Instractor> Instractors { get; set; }
+        public IEnumerable<Course> Courses { get; set; }
     }
 }

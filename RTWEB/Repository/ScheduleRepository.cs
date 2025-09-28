@@ -1,4 +1,6 @@
 ﻿using ZPWEB.Data;
+using ZPWEB.Enum;
+using ZPWEB.Models;
 using ZPWEB.ViewModel;
 
 namespace ZPWEB.Repository
@@ -11,23 +13,24 @@ namespace ZPWEB.Repository
             _db = db;
         }
 
-        public List<ScheduleVM> GetAll()
-        {
-           var data=(from sc in _db.Schedules
-                     join c in _db.Courses on sc.CourseId equals c.Id
-                     join i in _db.Instractors on sc.InstractorId equals i.Id 
-                     select new ScheduleVM
-                     {
-                         Id=sc.Id,
-                         Code=sc.Code,
-                         CourseName=c.CourseName,
-                         Day = sc.Day,
-                         StartTime =sc.StartTime,
-                         EndTime=sc.EndTime,
-                         InstractorName=i.Name
-                     }).ToList();
+       
 
-            return data;
+        public List<Schedule> GetAll()
+        {
+           return _db.Schedules.ToList();
+        }
+
+        public string GenerateCode()
+        {
+           var lastScheduleCode=_db.Schedules.OrderByDescending(x=>x.Id).Select(x=>x.Code).FirstOrDefault();
+
+            string newCode = "00001";
+            if(!string.IsNullOrEmpty(lastScheduleCode) && int.TryParse(lastScheduleCode,out int lastCode))
+            {
+                newCode=(lastCode +1).ToString("D5");
+            }
+
+            return newCode;
         }
     }
 }

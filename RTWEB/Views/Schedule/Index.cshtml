@@ -1,4 +1,4 @@
-﻿@model ZPWEB.ViewModels.PagedResult<ScheduleVM>
+﻿@model ZPWEB.ViewModels.PagedResult<Schedule>
 @using ZPWEB.Enum
 @using ZPWEB.ViewModel
 @{
@@ -23,11 +23,7 @@
                             <tr>
                                 <th style="width: 10px">Sl</th>
                                 <th>Code</th>
-                                <th>Course Name</th>
-                                <th>Instractor Name</th>
-                                <th> Day</th>
-                                <th> Start Time</th>
-                                <th> End Time</th>
+                                <th>Name</th>
                                 <th style="width:20px;text-align:center">Action</th>
                             </tr>
                         </thead>
@@ -35,16 +31,12 @@
                             @{
                                 int count = ((Model.CurrentPage - 1) * Model.PageSize) + 1;
                             }
-                            @foreach (ScheduleVM item in Model.Items)
+                            @foreach (Schedule item in Model.Items)
                             {
                                 <tr>
                                     <td>@count</td>
                                     <td>@item.Code</td>
-                                    <td>@item.CourseName</td>
-                                    <td>@item.InstractorName</td>
-                                    <td>@item.Day</td>
-                                    <td>@item.StartTime</td>
-                                    <td>@item.EndTime</td>
+                                    <td>@item.Name</td>
                                     <td>
                                         <div class="d-flex justify-content-center btn-group-sm ">
 
