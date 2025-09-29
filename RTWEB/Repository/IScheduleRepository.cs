@@ -7,5 +7,8 @@ namespace ZPWEB.Repository
     {
         public List<Schedule> GetAll();
         public string GenerateCode();
+        public void Save(Schedule schedule);
+        public bool DuplicateCheck(string name);
+        public void Delete(int id);
     }
 }

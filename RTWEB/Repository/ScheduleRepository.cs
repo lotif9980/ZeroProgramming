@@ -32,5 +32,21 @@ namespace ZPWEB.Repository
 
             return newCode;
         }
+
+        public void Save(Schedule schedule)
+        {
+           _db.Schedules.Add(schedule);
+        }
+
+        public bool DuplicateCheck(string name)
+        {
+            return _db.Schedules.Any(x=>x.Name== name);
+        }
+
+        public void Delete(int id)
+        {
+            var data=_db.Schedules.Find(id);
+            _db.Schedules.Remove(data);
+        }
     }
 }
