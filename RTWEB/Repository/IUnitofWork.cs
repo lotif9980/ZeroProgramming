@@ -8,6 +8,7 @@
         IMethodRepository MethodRepository { get; }
         IScheduleRepository ScheduleRepository { get; }
         IStudentRepository StudentRepository { get; }
+        IEnrollmentRepository EnrollmentRepository { get; }
 
         int Complete();
     }
