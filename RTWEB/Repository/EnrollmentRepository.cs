@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http.Metadata;
+using Microsoft.IdentityModel.Tokens;
 using ZPWEB.Data;
+using ZPWEB.Models;
 using ZPWEB.ViewModel;
 
 namespace ZPWEB.Repository
@@ -11,6 +13,8 @@ namespace ZPWEB.Repository
         {
             _db = db;
         }
+
+        
 
         public List<IndexEnrollment> GetAll()
         {
@@ -29,6 +33,29 @@ namespace ZPWEB.Repository
                          ContactNo=s.ContactNo
                         }).ToList();
             return data;
+        }
+
+        public string CreateGenerateCode()
+        {
+            var lastEnrollmentCode=_db.Enrollments.OrderByDescending(e=>e.Id).Select(d=>d.Code).FirstOrDefault();
+
+            string newCode = "00001";
+
+            if(!string.IsNullOrEmpty(lastEnrollmentCode) && int.TryParse(lastEnrollmentCode,out int lastCode))
+            {
+                newCode=(lastCode +1).ToString("D5");
+            }
+            return newCode;
+        }
+
+        public void Save(Enrollment enrollment)
+        {
+          _db.Enrollments.Add(enrollment);
+        }
+
+        public bool DuplicateCheck(int studentId, int coursId)
+        {
+           return _db.Enrollments.Any(x=>x.StudentId==studentId && x.CourseId==coursId);
         }
     }
 }
