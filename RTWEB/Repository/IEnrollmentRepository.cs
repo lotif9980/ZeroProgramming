@@ -9,5 +9,7 @@ namespace ZPWEB.Repository
         public string CreateGenerateCode();
         public void Save(Enrollment enrollment);
         public bool DuplicateCheck(int studentId, int coursId);
+
+        public void Delete(int id);
     }
 }

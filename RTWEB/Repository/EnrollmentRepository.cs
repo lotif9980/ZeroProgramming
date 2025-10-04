@@ -57,5 +57,11 @@ namespace ZPWEB.Repository
         {
            return _db.Enrollments.Any(x=>x.StudentId==studentId && x.CourseId==coursId);
         }
+
+        public void Delete(int id)
+        {
+           var data=  _db.Enrollments.Find(id);
+            _db.Remove(data);
+        }
     }
 }

@@ -93,5 +93,23 @@ namespace ZPWEB.Controllers
                 }
                 return RedirectToAction("Save");
             }
+    
+        public IActionResult Delete(int id)
+        {
+            _unitofWork.EnrollmentRepository.Delete(id);
+            var result = _unitofWork.Complete();
+            if (result > 0)
+            {
+                TempData["Message"] = "✅ Delete Successful";
+                TempData["MessageType"]="success";
+            }
+            else
+            {
+                TempData["Message"] = "❌ Delete Faild";
+                TempData["MessageType"] = "danger";
+            }
+
+            return RedirectToAction("Index");
+        }
     }
 }
