@@ -41,9 +41,9 @@ namespace ZPWEB.Controllers
             return View(data);
         }
 
-            [HttpPost]
-            public IActionResult Save(EnrollmentVM model)
-            {
+        [HttpPost]
+        public IActionResult Save(EnrollmentVM model)
+        {
                 if (model.Enrollment == null ||
                     string.IsNullOrEmpty(model.Enrollment.Code) ||
                     model.Enrollment.StudentId == null ||
