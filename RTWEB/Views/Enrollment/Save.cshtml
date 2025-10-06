@@ -33,10 +33,6 @@
                             </div>
                         </div>
 
-                    </div>
-
-                    <!-- Right Column -->
-                    <div class="col-md-6">
                         <div class="mb-3 row">
                             <label asp-for="Enrollment.CourseId" class="col-sm-4 col-form-label">Course Name</label>
                             <div class="col-sm-8">
@@ -59,6 +55,10 @@
                             </div>
                         </div>
 
+                    </div>
+
+                    <!-- Right Column -->
+                    <div class="col-md-6">
                         <div class="mb-3 row">
                             <label asp-for="Enrollment.ScheduleId" class="col-sm-4 col-form-label">Schedule</label>
                             <div class="col-sm-8">
@@ -67,6 +67,30 @@
                                     <option value="">---Select Schedule---</option>
                                 </select>
                                 <span asp-validation-for="Enrollment.ScheduleId" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label asp-for="Enrollment.TotalFee" class="col-sm-4 col-form-label">Total Fee</label>
+                            <div class="col-sm-8">
+                                <input type="number" asp-for="Enrollment.TotalFee" class="form-control"  />
+                                <span asp-validation-for="Enrollment.TotalFee" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label asp-for="Enrollment.PaidAmount" class="col-sm-4 col-form-label">Paid Amount</label>
+                            <div class="col-sm-8">
+                                <input type="number" asp-for="Enrollment.PaidAmount" class="form-control"  />
+                                <span asp-validation-for="Enrollment.PaidAmount" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label asp-for="Enrollment.DueAmount" class="col-sm-4 col-form-label">Due Amount</label>
+                            <div class="col-sm-8">
+                                <input type="number" asp-for="Enrollment.DueAmount" class="form-control" readonly  />
+                                <span asp-validation-for="Enrollment.DueAmount" class="text-danger"></span>
                             </div>
                         </div>
                     </div>
