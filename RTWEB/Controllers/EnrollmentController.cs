@@ -75,7 +75,11 @@ namespace ZPWEB.Controllers
                     EnrollDate = model.Enrollment.EnrollDate,
                     StudentId = model.Enrollment.StudentId,
                     CourseId = model.Enrollment.CourseId,
-                    ScheduleId = model.Enrollment.ScheduleId
+                    ScheduleId = model.Enrollment.ScheduleId,
+                    TotalFee=model.Enrollment.TotalFee,
+                    PaidAmount= model.Enrollment.PaidAmount,
+                    DueAmount=model.Enrollment.DueAmount,
+                    Status=model.Enrollment.Status
                 };
 
            
@@ -110,6 +114,15 @@ namespace ZPWEB.Controllers
             }
 
             return RedirectToAction("Index");
+        }
+
+
+        [HttpGet]
+        public IActionResult GetCourseFee(int courseId)
+        {
+            var course = _unitofWork.CourseRepository.GetById(courseId);
+            if (course == null) return Json(0);
+            return Json(course.CourseFee);
         }
     }
 }

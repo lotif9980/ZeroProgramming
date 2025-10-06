@@ -46,5 +46,10 @@ namespace ZPWEB.Repository
             var data = _db.Courses.Find(id);
             _db.Remove(data);
         }
+
+        public Course GetById(int id)
+        {
+            return _db.Courses.Find(id);
+        }
     }
 }

@@ -73,7 +73,7 @@
                         <div class="mb-3 row">
                             <label asp-for="Enrollment.TotalFee" class="col-sm-4 col-form-label">Total Fee</label>
                             <div class="col-sm-8">
-                                <input type="number" asp-for="Enrollment.TotalFee" class="form-control"  />
+                                <input type="number" asp-for="Enrollment.TotalFee" id="totalFee" class="form-control" value="0" />
                                 <span asp-validation-for="Enrollment.TotalFee" class="text-danger"></span>
                             </div>
                         </div>
@@ -81,7 +81,7 @@
                         <div class="mb-3 row">
                             <label asp-for="Enrollment.PaidAmount" class="col-sm-4 col-form-label">Paid Amount</label>
                             <div class="col-sm-8">
-                                <input type="number" asp-for="Enrollment.PaidAmount" class="form-control"  />
+                                <input type="number" asp-for="Enrollment.PaidAmount" id="paidAmount" class="form-control" value="0" />
                                 <span asp-validation-for="Enrollment.PaidAmount" class="text-danger"></span>
                             </div>
                         </div>
@@ -89,7 +89,7 @@
                         <div class="mb-3 row">
                             <label asp-for="Enrollment.DueAmount" class="col-sm-4 col-form-label">Due Amount</label>
                             <div class="col-sm-8">
-                                <input type="number" asp-for="Enrollment.DueAmount" class="form-control" readonly  />
+                                <input type="number" asp-for="Enrollment.DueAmount" id="dueAmount" class="form-control" readonly value="0" />
                                 <span asp-validation-for="Enrollment.DueAmount" class="text-danger"></span>
                             </div>
                         </div>
@@ -109,6 +109,10 @@
 <script>
     $(document).ready(function(){
 
+
+
+
+
         $("#enrollDate").datepicker({ dateFormat: "dd-mm-yy", changeMonth: true, changeYear: true });
         // Select2 init
         $(".course-dropdown,.student-dropdown,.schedule-dropdownn").select2({ width: '100%', allowClear: true });
@@ -123,9 +127,35 @@
 
             if(name==="")offset=createAlert("❌ Name is Required",container,offset)
 
-
                if($(".field-alert").length >0) return false;
                this.submit();
         });
+
+       function updateDueAmount() {
+        var totalFee = parseFloat($("#totalFee").val()) || 0;
+        var paidAmount = parseFloat($("#paidAmount").val()) || 0;
+        var dueAmount = totalFee - paidAmount;
+        $("#dueAmount").val(dueAmount.toFixed(0));
+       }
+
+      $('#courseId').on('change', function(){
+            var id = $(this).val();
+            if(id){
+                $.get('/Enrollment/GetCourseFee', { courseId: id }, function(fee){
+                    $('#totalFee').val(fee);
+                    updateDueAmount(); 
+                });
+            } else {
+                $('#totalFee').val(0);
+                updateDueAmount();
+            }
+      });
+
+        $("#totalFee, #paidAmount").on("input", updateDueAmount);
+
+        $("#totalFee, #paidAmount").on("focus", function(){
+            $(this).select();
+        });
+
     })
 </script>

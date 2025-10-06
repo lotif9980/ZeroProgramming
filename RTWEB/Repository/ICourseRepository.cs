@@ -9,5 +9,6 @@ namespace ZPWEB.Repository
         public void Save(Course course);
         public bool ExestingCheck(string name);
         public void Delete(int id);
+        public Course GetById(int id);
     }
 }

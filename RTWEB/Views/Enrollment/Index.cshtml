@@ -41,8 +41,11 @@
                                     <td>@item.Code</td>
                                     <td>@item.EnrollDate?.ToString("dd-MM-yyyy")</td>
                                     <td>
-                                        @item.StudentName <br />
-                                        @item.ContactNo
+                                        <div class="d-flex flex-column justify-content-center align-items-center">
+                                            @item.StudentName
+                                            <span>||</span>
+                                            @item.ContactNo
+                                        </div>
                                     </td>
                                     <td>@item.CourseName</td>
                                     <td>@item.ScheduleName</td>

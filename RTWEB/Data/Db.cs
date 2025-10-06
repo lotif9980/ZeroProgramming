@@ -34,7 +34,7 @@ namespace ZPWEB.Data
         public DbSet<Enrollment> Enrollments { get; set; }
         public DbSet<Instractor> Instractors { get; set; }
         public DbSet<Method> Methods { get; set; }
-        public DbSet<Payment> Payments { get; set; }
+        public DbSet<PaymentDetail> PaymentDetails { get; set; }
         public DbSet<Schedule> Schedules { get; set; }
         public DbSet<Student> Students { get; set; }
 
