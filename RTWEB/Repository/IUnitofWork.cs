@@ -9,6 +9,7 @@
         IScheduleRepository ScheduleRepository { get; }
         IStudentRepository StudentRepository { get; }
         IEnrollmentRepository EnrollmentRepository { get; }
+        IPaymentDetailRepository PaymentDetailRepository { get; }
 
         int Complete();
     }

@@ -13,6 +13,7 @@ namespace ZPWEB.Repository
         public IScheduleRepository ScheduleRepository { get; set; }
         public IStudentRepository StudentRepository {  get; set; }
         public IEnrollmentRepository EnrollmentRepository {  get; set; }
+        public IPaymentDetailRepository PaymentDetailRepository { get; set; }
 
         public int Complete()
         {
@@ -33,6 +34,7 @@ namespace ZPWEB.Repository
             ScheduleRepository=new ScheduleRepository(db);
             StudentRepository=new StudentRepository(db);
             EnrollmentRepository= new EnrollmentRepository(db);
+            PaymentDetailRepository = new PaymentDetailRepository(db);
 
         }
 
