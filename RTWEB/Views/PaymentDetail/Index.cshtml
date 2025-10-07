@@ -1,4 +1,4 @@
-﻿@model ZPWEB.ViewModels.PagedResult<PaymentDetail>
+﻿@model ZPWEB.ViewModels.PagedResult<PaymentDetailsVM>
 @using ZPWEB.Enum
 @using ZPWEB.ViewModel
 @{
@@ -22,10 +22,11 @@
                         <thead>
                             <tr>
                                 <th style="width: 10px">Sl</th>
+                                <th>Date</th>
                                 <th>Code</th>
-                                <th>Name</th>
-                                <th>Contact</th>
-                                <th>Address</th>
+                                <th>Student</th>
+                                <th>PaymentMethod</th>
+                                <th>Amount</th>
                                 <th style="width:20px;text-align:center">Action</th>
                             </tr>
                         </thead>
@@ -33,14 +34,19 @@
                             @{
                                 int count = ((Model.CurrentPage - 1) * Model.PageSize) + 1;
                             }
-                            @foreach (PaymentDetail item in Model.Items)
+                            @foreach (PaymentDetailsVM item in Model.Items)
                             {
                                 <tr>
                                     <td>@count</td>
+                                    <td>@item.PaymentDate?.ToString("dd-MM-yyyy")</td>
                                     <td>@item.Code</td>
-                                    <td>@item.Name</td>
-                                    <td>@item.ContactNo</td>
-                                    <td>@item.Address</td>
+                                    <td>
+                                        <div class="d-flex align-middle">
+                                            @item.StudentName <br /> || @item.ContactNo
+                                        </div>
+                                    </td>
+                                    <td>@item.PaymentMethod</td>
+                                    <td>@item.PaidAmt</td>
                                     <td>
                                         <div class="d-flex justify-content-center btn-group-sm ">
 

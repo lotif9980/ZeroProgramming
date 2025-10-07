@@ -3,6 +3,7 @@
     public class PaymentDetailsVM
     {
         public int Id {  get; set; }
+        public string? Code {  get; set; }
         public string? StudentName {  get; set; }
         public string? ContactNo { get; set; }
         public Decimal? PaidAmt { get; set; }
