@@ -5,5 +5,6 @@ namespace ZPWEB.Repository
     public interface IPaymentDetailRepository
     {
         public IEnumerable<PaymentDetailsVM> GetAll();
+        public string GenerateCode();
     }
 }

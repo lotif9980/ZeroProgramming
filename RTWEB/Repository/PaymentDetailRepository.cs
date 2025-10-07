@@ -11,6 +11,8 @@ namespace ZPWEB.Repository
             _db = db;
         }
 
+       
+
         public IEnumerable<PaymentDetailsVM> GetAll()
         {
             var data=(from p in _db.PaymentDetails
@@ -29,6 +31,19 @@ namespace ZPWEB.Repository
                       }).ToList();
 
             return data;
+        }
+
+
+        public string GenerateCode()
+        {
+            var lastPaymentDetailsCode = _db.PaymentDetails.OrderByDescending(p => p.Id).Select(p => p.Code).FirstOrDefault();
+            string newCode = "00001";
+
+            if(!string.IsNullOrEmpty(lastPaymentDetailsCode) && int.TryParse(lastPaymentDetailsCode, out int lastCode))
+            {
+                newCode= (lastCode +1).ToString("D5");
+            }
+            return newCode;
         }
     }
 }

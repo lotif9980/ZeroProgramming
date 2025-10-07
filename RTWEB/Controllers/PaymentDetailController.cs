@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using ZPWEB.Helpers;
+using ZPWEB.Models;
 using ZPWEB.Repository;
+using ZPWEB.ViewModel;
 
 namespace ZPWEB.Controllers
 {
@@ -19,6 +22,22 @@ namespace ZPWEB.Controllers
                         .OrderByDescending(x=>x.Id)
                         .AsQueryable()
                         .ToPagedList(page, pageSize);
+            return View(data);
+        }
+
+        [HttpGet]
+        public IActionResult Save()
+        {
+            var data = new PaymentDetailsSaveVM
+            {
+              
+                PaymentDetail = new Models.PaymentDetail
+                {
+                    Code=_unitofWork.PaymentDetailRepository.GenerateCode()
+                },
+                Enrollments=_unitofWork.EnrollmentRepository.GetAll(),
+                Methods=_unitofWork.MethodRepository.GetAll(),
+            };
             return View(data);
         }
     }

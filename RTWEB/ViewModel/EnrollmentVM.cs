@@ -6,7 +6,6 @@ namespace ZPWEB.ViewModel
     {
        
         public Enrollment Enrollment { get; set; }
-        //public IEnumerable<EnrollmentVM> Enrollment { get;set; }
         public IEnumerable<Course> Course { get; set; }
         public IEnumerable<Student> Students { get; set; }
         public IEnumerable<Schedule> Schedule { get; set; }

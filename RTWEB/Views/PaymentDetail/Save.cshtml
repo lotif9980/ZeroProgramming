@@ -1,0 +1,161 @@
+﻿@using ZPWEB.Models
+@using ZPWEB.ViewModel
+@model PaymentDetailsSaveVM
+
+@{
+    var instractor = ViewBag.Method;
+}
+<div class="container mt-3">
+    <form asp-action="Save" id="myForm" method="post" enctype="multipart/form-data">
+        <div class="card shadow-sm">
+            <div class="card-header d-flex justify-content-around align-items-center">
+                <strong class="mb-0">Enrollment Information</strong>
+                <a class="btn btn-primary btn-sm" asp-action="Index">Enrollment Student</a>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <!-- Left Column -->
+                    <div class="col-md-6 border-end">
+                        <div class="mb-3 row">
+                            <label asp-for="PaymentDetail.Code" class="col-sm-4 col-form-label">Code</label>
+                            <div class="col-sm-8">
+                                <input asp-for="PaymentDetail.Code" class="form-control" id="code" readonly>
+                                <span asp-validation-for="PaymentDetail.Code" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label asp-for="PaymentDetail.PaymentDate" class="col-sm-4 col-form-label">Date</label>
+                            <div class="col-sm-8">
+                                <input type="text" asp-for="PaymentDetail.PaymentDate" class="form-control" id="enrollDate"
+                                       value="@DateTime.Now.ToString("dd-MM-yyyy")">
+                                <span asp-validation-for="PaymentDetail.PaymentDate" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label asp-for="PaymentDetail.EnrollmentId" class="col-sm-4 col-form-label">Enrole Id</label>
+                            <div class="col-sm-8">
+                                <select id="courseId" asp-for="PaymentDetail.EnrollmentId" class="form-control course-dropdown"
+                                        asp-items="@(new SelectList(Model.Enrollments, "Id", "Id"))">
+                                    <option value="">---Select Course---</option>
+                                </select>
+                                <span asp-validation-for="PaymentDetail.EnrollmentId" class="text-danger"></span>
+                            </div>
+                        </div> 
+
+                        @* <div class="mb-3 row">
+                            <label asp-for="Enrollment.StudentId" class="col-sm-4 col-form-label">Student</label>
+                            <div class="col-sm-8">
+                                <select id="studentId" asp-for="Enrollment.StudentId" class="form-control student-dropdown"
+                                        asp-items="@(new SelectList(Model.Students, "Id", "Name"))">
+                                    <option value="">---Select Student---</option>
+                                </select>
+                                <span asp-validation-for="Enrollment.StudentId" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Right Column -->
+                    <div class="col-md-6">
+                        @* <div class="mb-3 row">
+                            <label asp-for="Enrollment.ScheduleId" class="col-sm-4 col-form-label">Schedule</label>
+                            <div class="col-sm-8">
+                                <select id="scheduleId" asp-for="Enrollment.ScheduleId" class="form-control schedule-dropdownn"
+                                        asp-items="@(new SelectList(Model.Schedule, "Id", "Name"))">
+                                    <option value="">---Select Schedule---</option>
+                                </select>
+                                <span asp-validation-for="Enrollment.ScheduleId" class="text-danger"></span>
+                            </div>
+                        </div> *@
+
+                        <div class="mb-3 row">
+                            @* <label asp-for="Enrollment.TotalFee" class="col-sm-4 col-form-label">Total Fee</label>
+                            <div class="col-sm-8">
+                                <input type="number" asp-for="Enrollment.TotalFee" id="totalFee" class="form-control" value="0" />
+                                <span asp-validation-for="Enrollment.TotalFee" class="text-danger"></span>
+                            </div> *@
+                        </div>
+
+                        <div class="mb-3 row">
+                          @*   <label asp-for="Enrollment.PaidAmount" class="col-sm-4 col-form-label">Paid Amount</label>
+                            <div class="col-sm-8">
+                                <input type="number" asp-for="Enrollment.PaidAmount" id="paidAmount" class="form-control" value="0" />
+                                <span asp-validation-for="Enrollment.PaidAmount" class="text-danger"></span>
+                            </div> *@
+                        </div>
+
+                        <div class="mb-3 row">
+                           @*  <label asp-for="Enrollment.DueAmount" class="col-sm-4 col-form-label">Due Amount</label>
+                            <div class="col-sm-8">
+                                <input type="number" asp-for="Enrollment.DueAmount" id="dueAmount" class="form-control" readonly value="0" />
+                                <span asp-validation-for="Enrollment.DueAmount" class="text-danger"></span>
+                            </div> *@
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Buttons -->
+                <div class="d-flex justify-content-end gap-2 mt-3">
+                    <button type="reset" class="btn btn-danger">Reset</button>
+                    <button type="submit" class="btn btn-warning">Save</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    $(document).ready(function(){
+
+
+
+
+
+        $("#enrollDate").datepicker({ dateFormat: "dd-mm-yy", changeMonth: true, changeYear: true });
+        // Select2 init
+        $(".course-dropdown,.student-dropdown,.schedule-dropdownn").select2({ width: '100%', allowClear: true });
+        $(document).on('select2:open', () => { document.querySelector('.select2-search__field').focus(); });
+
+        $("#myForm").on('submit',function(){
+            var name=$("#cName").val().trim();
+
+
+            var offset=20;
+            var container=$("body");
+
+            if(name==="")offset=createAlert("❌ Name is Required",container,offset)
+
+               if($(".field-alert").length >0) return false;
+               this.submit();
+        });
+
+       function updateDueAmount() {
+        var totalFee = parseFloat($("#totalFee").val()) || 0;
+        var paidAmount = parseFloat($("#paidAmount").val()) || 0;
+        var dueAmount = totalFee - paidAmount;
+        $("#dueAmount").val(dueAmount.toFixed(0));
+       }
+
+      $('#courseId').on('change', function(){
+            var id = $(this).val();
+            if(id){
+                $.get('/Enrollment/GetCourseFee', { courseId: id }, function(fee){
+                    $('#totalFee').val(fee);
+                    updateDueAmount();
+                });
+            } else {
+                $('#totalFee').val(0);
+                updateDueAmount();
+            }
+      });
+
+        $("#totalFee, #paidAmount").on("input", updateDueAmount);
+
+        $("#totalFee, #paidAmount").on("focus", function(){
+            $(this).select();
+        });
+
+    })
+</script>

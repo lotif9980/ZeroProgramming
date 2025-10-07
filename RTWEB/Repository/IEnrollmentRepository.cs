@@ -5,7 +5,7 @@ namespace ZPWEB.Repository
 {
     public interface IEnrollmentRepository
     {
-        public List<IndexEnrollment> GetAll();
+        public IEnumerable<IndexEnrollment> GetAll();
         public string CreateGenerateCode();
         public void Save(Enrollment enrollment);
         public bool DuplicateCheck(int studentId, int coursId);

@@ -21,8 +21,6 @@ namespace ZPWEB.ViewModel
 
         public Schedule Input { get; set; } = new Schedule();
         public List<Schedule> Schedule { get; set; } = new List<Schedule>();
-        //public Schedule Input { get; set; } = new Schedule();
-        //public Schedule? Schedule { get; set; } = new Schedule();
         public IEnumerable<Instractor> Instractors { get; set; }
         public IEnumerable<Course> Courses { get; set; }
     }

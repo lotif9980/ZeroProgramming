@@ -16,7 +16,7 @@ namespace ZPWEB.Repository
 
         
 
-        public List<IndexEnrollment> GetAll()
+        public IEnumerable<IndexEnrollment> GetAll()
         {
             var data = (from e in _db.Enrollments
                         join c in _db.Courses on e.CourseId equals c.Id
