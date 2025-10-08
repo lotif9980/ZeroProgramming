@@ -9,6 +9,8 @@ namespace ZPWEB.ViewModel
         public IEnumerable<Course> Course { get; set; }
         public IEnumerable<Student> Students { get; set; }
         public IEnumerable<Schedule> Schedule { get; set; }
+        public IEnumerable<Method> Method { get; set; }
+        public int? SelectedMethodId { get; set; }
     }
 
     public class IndexEnrollment

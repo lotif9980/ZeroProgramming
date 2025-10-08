@@ -34,6 +34,24 @@ namespace ZPWEB.Repository
                         }).ToList();
             return data;
         }
+        public IEnumerable<IndexEnrollment> GetDueAmtount()
+                {
+                    var data = (from e in _db.Enrollments where e.DueAmount >0
+                                join c in _db.Courses on e.CourseId equals c.Id
+                                join s in _db.Students on e.StudentId equals s.Id
+                                join sc in _db.Schedules on e.ScheduleId equals sc.Id
+                                select new IndexEnrollment 
+                                { 
+                                 Id= e.Id,
+                                 Code=e.Code,
+                                 StudentName=s.Name,
+                                 CourseName=c.CourseName,
+                                 EnrollDate=e.EnrollDate,
+                                 ScheduleName=sc.Name,
+                                 ContactNo=s.ContactNo
+                                }).ToList();
+                    return data;
+        }
 
         public string CreateGenerateCode()
         {
@@ -62,6 +80,16 @@ namespace ZPWEB.Repository
         {
            var data=  _db.Enrollments.Find(id);
             _db.Remove(data);
+        }
+
+        public Enrollment GetById(int id)
+        {
+           return _db.Enrollments.Find(id);
+        }
+
+        public void Update(Enrollment enrollment)
+        {
+            _db.Enrollments.Update(enrollment);
         }
     }
 }

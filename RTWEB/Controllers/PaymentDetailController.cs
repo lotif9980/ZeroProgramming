@@ -35,7 +35,7 @@ namespace ZPWEB.Controllers
                 {
                     Code=_unitofWork.PaymentDetailRepository.GenerateCode()
                 },
-                Enrollments=_unitofWork.EnrollmentRepository.GetAll(),
+                Enrollments=_unitofWork.EnrollmentRepository.GetDueAmtount(),
                 Methods=_unitofWork.MethodRepository.GetAll(),
             };
             return View(data);
@@ -51,7 +51,7 @@ namespace ZPWEB.Controllers
                     model.PaymentDetail.Amount == 0)
             {
                 TempData["Message"] = "❌ Invalid Data submit";
-                model.Enrollments = _unitofWork.EnrollmentRepository.GetAll();
+                model.Enrollments = _unitofWork.EnrollmentRepository.GetDueAmtount();
                 model.Methods = _unitofWork.MethodRepository.GetAll();
                 return View(model);
             }
@@ -67,6 +67,16 @@ namespace ZPWEB.Controllers
             };
 
             _unitofWork.PaymentDetailRepository.Save(data);
+
+            var enrollment= _unitofWork.EnrollmentRepository.GetById(model.PaymentDetail.EnrollmentId);
+            if (enrollment != null)
+            {
+                enrollment.PaidAmount += model.PaymentDetail.Amount;
+                enrollment.DueAmount =enrollment.TotalFee-enrollment.PaidAmount;
+
+                _unitofWork.EnrollmentRepository.Update(enrollment);
+            }
+
             var result=_unitofWork.Complete();
             if (result > 0)
             {

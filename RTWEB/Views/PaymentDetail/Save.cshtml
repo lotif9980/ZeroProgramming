@@ -38,7 +38,7 @@
                             <div class="col-sm-8">
                                 <select id="enrollmentId" asp-for="PaymentDetail.EnrollmentId" class="form-control course-dropdown"
                                         asp-items="@(new SelectList(Model.Enrollments, "Id", "Id"))">
-                                    <option value="">---Select Course---</option>
+                                    <option value="">---Select Enroll Id---</option>
                                 </select>
                                 <span asp-validation-for="PaymentDetail.EnrollmentId" class="text-danger"></span>
                             </div>

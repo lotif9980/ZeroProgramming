@@ -29,14 +29,14 @@ namespace ZPWEB.Controllers
         {
             var data = new EnrollmentVM
             {
-                //Enrollment = new Models.Enrollment(),
                 Enrollment = new Models.Enrollment
                 {
                     Code = _unitofWork.EnrollmentRepository.CreateGenerateCode()
                 },
                 Course = _unitofWork.CourseRepository.GetAll(),
                 Students = _unitofWork.StudentRepository.GetAll(),
-                Schedule = _unitofWork.ScheduleRepository.GetAll()
+                Schedule = _unitofWork.ScheduleRepository.GetAll(),
+                Method=_unitofWork.MethodRepository.GetAll()
             };
             return View(data);
         }
@@ -84,6 +84,19 @@ namespace ZPWEB.Controllers
 
            
                 _unitofWork.EnrollmentRepository.Save(data);
+                _unitofWork.Complete();
+
+                var payment = new PaymentDetail
+                {
+                    Code=_unitofWork.PaymentDetailRepository.GenerateCode(),
+                    EnrollmentId=data.Id,
+                    PaymentDate=model.Enrollment.EnrollDate,
+                    Amount=model.Enrollment.PaidAmount,
+                    PaymentMethod=model.SelectedMethodId
+                };
+
+                _unitofWork.PaymentDetailRepository.Save(payment);
+
                var result=_unitofWork.Complete();
                 if (result > 0)
                 {
@@ -96,7 +109,7 @@ namespace ZPWEB.Controllers
                     TempData["MessageType"] = "danger";
                 }
                 return RedirectToAction("Save");
-            }
+        }
     
         public IActionResult Delete(int id)
         {
