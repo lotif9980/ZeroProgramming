@@ -54,7 +54,7 @@ namespace ZPWEB.Controllers
                 model.Enrollments = _unitofWork.EnrollmentRepository.GetDueAmtount();
                 model.Methods = _unitofWork.MethodRepository.GetAll();
                 return View(model);
-            }
+            } 
 
             var data = new PaymentDetail
             {
