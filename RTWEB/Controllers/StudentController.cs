@@ -44,17 +44,30 @@ namespace ZPWEB.Controllers
         }
 
         [HttpPost]
-        public IActionResult Save(Student student)
+        public IActionResult Save(StudentVM model)
         {
-            if (ModelState.IsValid)
-            {
-                bool exestingCheck = _unitofWork.StudentRepository.DuplicateCheck(student.Name, student.ContactNo);
+            
+                bool exestingCheck = _unitofWork.StudentRepository.DuplicateCheck(model.Student.Name, model.Student.ContactNo);
                 if (exestingCheck)
                 {
                     TempData["Message"] = "❌ Already Added";
                     TempData["MessageType"] = "danger";
-                    return View(student);
+                    return View(model);
                 }
+
+                var student = new Student
+                {
+                    Code=model.Student.Code,
+                    Name=model.Student.Name,
+                    ContactNo=model.Student.ContactNo,
+                    Address=model.Student.Address,
+                    FatherName=model.Student.FatherName,
+                    FatherPhoneNumber=model.Student.FatherPhoneNumber,
+                    MotherName=model.Student.MotherName,
+                    SchoolName=model.Student.SchoolName,
+                    Picture=model.Student.Picture,
+                    Class=model.Student.Class
+                };
 
                 _unitofWork.StudentRepository.Save(student);
                 var result = _unitofWork.Complete(); 
@@ -62,12 +75,12 @@ namespace ZPWEB.Controllers
                 if (result > 0)
                 {
                  
-                    if (student.ImageFile != null)
+                    if (model.Student.ImageFile != null)
                     {
-                        string code = student.Code.Replace(" ", "_");
-                        string fileName = $"{student.Id}_{code}{Path.GetExtension(student.ImageFile.FileName)}";
+                        string code = model.Student.Code.Replace(" ", "_");
+                        string fileName = $"{model.Student.Id}_{code}{Path.GetExtension(model.Student.ImageFile.FileName)}";
 
-                        SavePhoto(student.ImageFile, fileName);
+                        SavePhoto(model.Student.ImageFile, fileName);
                         student.Picture = fileName;
 
                         _unitofWork.StudentRepository.Update(student);
@@ -84,8 +97,8 @@ namespace ZPWEB.Controllers
                     TempData["MessageType"] = "danger";
                     return View(student);
                 }
-            }
-            return View(student);
+           
+            return View(model);
         }
 
 
