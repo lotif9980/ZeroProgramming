@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using ZPWEB.Helpers;
 using ZPWEB.Models;
 using ZPWEB.Repository;
+using ZPWEB.ViewModel;
 
 namespace ZPWEB.Controllers
 {
@@ -26,9 +28,17 @@ namespace ZPWEB.Controllers
         [HttpGet]
         public IActionResult Save()
         {
-            var vm = new Student
+           
+            var vm = new StudentVM
             {
-                Code=_unitofWork.StudentRepository.GenerateCode()
+               
+                Student= new Models.Student
+                {
+                    Code=_unitofWork.StudentRepository.GenerateCode(),
+                },
+                Courses=_unitofWork.CourseRepository.GetAll(),
+                Schedules=_unitofWork.ScheduleRepository.GetAll(),
+                Methods=_unitofWork.MethodRepository.GetAll()
             };
             return View(vm);
         }
