@@ -36,7 +36,7 @@
                         <div class="mb-3 row">
                             <label asp-for="PaymentDetail.EnrollmentId" class="col-sm-4 col-form-label">Enrole Id</label>
                             <div class="col-sm-8">
-                                <select id="courseId" asp-for="PaymentDetail.EnrollmentId" class="form-control course-dropdown"
+                                <select id="enrollmentId" asp-for="PaymentDetail.EnrollmentId" class="form-control course-dropdown"
                                         asp-items="@(new SelectList(Model.Enrollments, "Id", "Id"))">
                                     <option value="">---Select Course---</option>
                                 </select>
@@ -44,14 +44,14 @@
                             </div>
                         </div> 
 
-                        @* <div class="mb-3 row">
-                            <label asp-for="Enrollment.StudentId" class="col-sm-4 col-form-label">Student</label>
+                        <div class="mb-3 row">
+                            <label asp-for="PaymentDetail.PaymentMethod" class="col-sm-4 col-form-label">P. Method</label>
                             <div class="col-sm-8">
-                                <select id="studentId" asp-for="Enrollment.StudentId" class="form-control student-dropdown"
-                                        asp-items="@(new SelectList(Model.Students, "Id", "Name"))">
-                                    <option value="">---Select Student---</option>
+                                <select id="studentId" asp-for="PaymentDetail.PaymentMethod" class="form-control student-dropdown"
+                                        asp-items="@(new SelectList(Model.Methods, "Id", "Name"))">
+                                    <option value="">---Select Method---</option>
                                 </select>
-                                <span asp-validation-for="Enrollment.StudentId" class="text-danger"></span>
+                                <span asp-validation-for="PaymentDetail.PaymentMethod" class="text-danger"></span>
                             </div>
                         </div>
 
@@ -59,39 +59,36 @@
 
                     <!-- Right Column -->
                     <div class="col-md-6">
-                        @* <div class="mb-3 row">
-                            <label asp-for="Enrollment.ScheduleId" class="col-sm-4 col-form-label">Schedule</label>
+                        <div class="mb-3 row">
+                            <label  class="col-sm-4 col-form-label">Total Due</label>
                             <div class="col-sm-8">
-                                <select id="scheduleId" asp-for="Enrollment.ScheduleId" class="form-control schedule-dropdownn"
-                                        asp-items="@(new SelectList(Model.Schedule, "Id", "Name"))">
-                                    <option value="">---Select Schedule---</option>
-                                </select>
-                                <span asp-validation-for="Enrollment.ScheduleId" class="text-danger"></span>
+                                <input type="number" name="totalDue" id="totalDue" class="form-control" value="0" />
+                                @* <span asp-validation-for="Enrollment.TotalFee" class="text-danger"></span> *@
                             </div>
-                        </div> *@
-
-                        <div class="mb-3 row">
-                            @* <label asp-for="Enrollment.TotalFee" class="col-sm-4 col-form-label">Total Fee</label>
-                            <div class="col-sm-8">
-                                <input type="number" asp-for="Enrollment.TotalFee" id="totalFee" class="form-control" value="0" />
-                                <span asp-validation-for="Enrollment.TotalFee" class="text-danger"></span>
-                            </div> *@
                         </div>
 
                         <div class="mb-3 row">
-                          @*   <label asp-for="Enrollment.PaidAmount" class="col-sm-4 col-form-label">Paid Amount</label>
+                            <label asp-for="PaymentDetail.Amount" class="col-sm-4 col-form-label">Paid Amount</label>
                             <div class="col-sm-8">
-                                <input type="number" asp-for="Enrollment.PaidAmount" id="paidAmount" class="form-control" value="0" />
-                                <span asp-validation-for="Enrollment.PaidAmount" class="text-danger"></span>
-                            </div> *@
+                                <input type="number" asp-for="PaymentDetail.Amount" id="paidAmount" class="form-control" value="0" />
+                                <span asp-validation-for="PaymentDetail.Amount" class="text-danger"></span>
+                            </div>
                         </div>
 
                         <div class="mb-3 row">
-                           @*  <label asp-for="Enrollment.DueAmount" class="col-sm-4 col-form-label">Due Amount</label>
+                            <label  class="col-sm-4 col-form-label">Due Amount</label>
                             <div class="col-sm-8">
-                                <input type="number" asp-for="Enrollment.DueAmount" id="dueAmount" class="form-control" readonly value="0" />
-                                <span asp-validation-for="Enrollment.DueAmount" class="text-danger"></span>
-                            </div> *@
+                                <input type="number" id="dueAmount" class="form-control" readonly value="0" />
+                                @* <span asp-validation-for="Enrollment.DueAmount" class="text-danger"></span> *@
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label asp-for="PaymentDetail.TransactionId" class="col-sm-4 col-form-label">Transaction Number</label>
+                            <div class="col-sm-8">
+                                <input asp-for="PaymentDetail.TransactionId" class="form-control" />
+                                <span asp-validation-for="PaymentDetail.TransactionId" class="text-danger"></span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -132,28 +129,28 @@
         });
 
        function updateDueAmount() {
-        var totalFee = parseFloat($("#totalFee").val()) || 0;
+        var totalDue = parseFloat($("#totalDue").val()) || 0;
         var paidAmount = parseFloat($("#paidAmount").val()) || 0;
-        var dueAmount = totalFee - paidAmount;
+        var dueAmount = totalDue - paidAmount;
         $("#dueAmount").val(dueAmount.toFixed(0));
        }
 
-      $('#courseId').on('change', function(){
+      $('#enrollmentId').on('change', function(){
             var id = $(this).val();
             if(id){
-                $.get('/Enrollment/GetCourseFee', { courseId: id }, function(fee){
-                    $('#totalFee').val(fee);
+                $.get('/PaymentDetail/GetEnrollmentLastDue', { enrollmentId: id }, function(dueAmt){
+                    $('#totalDue').val(dueAmt);
                     updateDueAmount();
                 });
             } else {
-                $('#totalFee').val(0);
+                $('#totalDue').val(0);
                 updateDueAmount();
             }
       });
 
-        $("#totalFee, #paidAmount").on("input", updateDueAmount);
+        $("#totalDue, #paidAmount").on("input", updateDueAmount);
 
-        $("#totalFee, #paidAmount").on("focus", function(){
+        $("#totalDue, #paidAmount").on("focus", function(){
             $(this).select();
         });
 

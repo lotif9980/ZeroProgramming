@@ -1,4 +1,5 @@
 ﻿using ZPWEB.Data;
+using ZPWEB.Models;
 using ZPWEB.ViewModel;
 
 namespace ZPWEB.Repository
@@ -44,6 +45,16 @@ namespace ZPWEB.Repository
                 newCode= (lastCode +1).ToString("D5");
             }
             return newCode;
+        }
+
+        public Enrollment GetById(int id)
+        {
+            return _db.Enrollments.Find(id);
+        }
+
+        public void Save(PaymentDetail model)
+        {
+            _db.PaymentDetails.Add(model);
         }
     }
 }

@@ -40,5 +40,55 @@ namespace ZPWEB.Controllers
             };
             return View(data);
         }
+
+        [HttpPost]
+        public IActionResult Save(PaymentDetailsSaveVM model)
+        {
+            if (model.PaymentDetail == null ||
+                    string.IsNullOrEmpty(model.PaymentDetail.Code) ||
+                    model.PaymentDetail.EnrollmentId == null ||
+                    model.PaymentDetail.PaymentMethod == null ||
+                    model.PaymentDetail.Amount == 0)
+            {
+                TempData["Message"] = "❌ Invalid Data submit";
+                model.Enrollments = _unitofWork.EnrollmentRepository.GetAll();
+                model.Methods = _unitofWork.MethodRepository.GetAll();
+                return View(model);
+            }
+
+            var data = new PaymentDetail
+            {
+                Code=model.PaymentDetail.Code,
+                EnrollmentId=model.PaymentDetail.EnrollmentId,
+                PaymentDate=model.PaymentDetail.PaymentDate,
+                Amount=model.PaymentDetail.Amount,
+                PaymentMethod=model.PaymentDetail.PaymentMethod,
+                TransactionId=model.PaymentDetail.TransactionId
+            };
+
+            _unitofWork.PaymentDetailRepository.Save(data);
+            var result=_unitofWork.Complete();
+            if (result > 0)
+            {
+                TempData["Message"] = "✅ Save Successfull";
+                TempData["MessageType"] = "success";
+            }
+            else
+            {
+                TempData["Message"] = "❌ Save Faild";
+                TempData["MessageType"] = "danger";
+            }
+            return RedirectToAction("Save");
+        }
+
+       [HttpGet]
+        public IActionResult GetEnrollmentLastDue(int enrollmentId)
+        {
+            var data=_unitofWork.PaymentDetailRepository.GetById(enrollmentId);
+            if (data == null) return Json(0);
+            return Json(data.DueAmount);
+        }
+
+       
     }
 }
