@@ -2,9 +2,6 @@
 @using ZPWEB.ViewModel
 @model EnrollmentVM
 
-@{
-    var instractor = ViewBag.Method;
-}
 <div class="container mt-3">
     <form asp-action="Save" id="myForm" method="post" enctype="multipart/form-data">
         <div class="card shadow-sm">
@@ -84,7 +81,7 @@
                         <div class="mb-3 row">
                             <label asp-for="Enrollment.TotalFee" class="col-sm-4 col-form-label">Total Fee</label>
                             <div class="col-sm-8">
-                                <input type="number" asp-for="Enrollment.TotalFee" id="totalFee" class="form-control" value="0" />
+                                <input type="number" asp-for="Enrollment.TotalFee" id="totalFee" class="form-control"  />
                                 <span asp-validation-for="Enrollment.TotalFee" class="text-danger"></span>
                             </div>
                         </div>
@@ -92,7 +89,7 @@
                         <div class="mb-3 row">
                             <label asp-for="Enrollment.PaidAmount" class="col-sm-4 col-form-label">Paid Amount</label>
                             <div class="col-sm-8">
-                                <input type="number" asp-for="Enrollment.PaidAmount" id="paidAmount" class="form-control" value="0" />
+                                <input type="number" asp-for="Enrollment.PaidAmount" id="paidAmount" class="form-control" />
                                 <span asp-validation-for="Enrollment.PaidAmount" class="text-danger"></span>
                             </div>
                         </div>
@@ -100,7 +97,7 @@
                         <div class="mb-3 row">
                             <label asp-for="Enrollment.DueAmount" class="col-sm-4 col-form-label">Due Amount</label>
                             <div class="col-sm-8">
-                                <input type="number" asp-for="Enrollment.DueAmount" id="dueAmount" class="form-control" readonly value="0" />
+                                <input type="number" asp-for="Enrollment.DueAmount" id="dueAmount" class="form-control" readonly />
                                 <span asp-validation-for="Enrollment.DueAmount" class="text-danger"></span>
                             </div>
                         </div>

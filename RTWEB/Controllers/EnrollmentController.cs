@@ -44,73 +44,97 @@ namespace ZPWEB.Controllers
         [HttpPost]
         public IActionResult Save(EnrollmentVM model)
         {
-                if (model.Enrollment == null ||
-                    string.IsNullOrEmpty(model.Enrollment.Code) ||
-                    model.Enrollment.StudentId == null ||
-                    model.Enrollment.CourseId == null ||
-                    model.Enrollment.ScheduleId == null)
-                {
-                    TempData["Message"] = "❌ Invalid Data submit";
-                    model.Course = _unitofWork.CourseRepository.GetAll();
-                    model.Students = _unitofWork.StudentRepository.GetAll();
-                    model.Schedule = _unitofWork.ScheduleRepository.GetAll();
-                    return View(model);
-                }
+          
+            if (model.Enrollment == null ||
+                string.IsNullOrEmpty(model.Enrollment.Code) ||
+                model.Enrollment.StudentId == null ||
+                model.Enrollment.CourseId == null ||
+                model.Enrollment.ScheduleId == null)
+            {
+                TempData["Message"] = "❌ Invalid Data Submit";
+                TempData["MessageType"] = "danger";
+                return ReturnEnrollmentView(model);
+            }
 
-                bool isDuplicate = _unitofWork.EnrollmentRepository.DuplicateCheck(model.Enrollment.StudentId.Value,model.Enrollment.CourseId.Value);
-                if (isDuplicate)
-                {
-                    TempData["Message"] = "❌ This student already enrolled in this course";
-                    TempData["MessageType"] = "danger";
+          
+            bool isDuplicate = _unitofWork.EnrollmentRepository
+                .DuplicateCheck(model.Enrollment.StudentId.Value, model.Enrollment.CourseId.Value);
 
-                    model.Course = _unitofWork.CourseRepository.GetAll();
-                    model.Students = _unitofWork.StudentRepository.GetAll();
-                    model.Schedule = _unitofWork.ScheduleRepository.GetAll();
-                    return View(model);
-                }
-
-                var data = new Enrollment
-                {
-                    Code = model.Enrollment.Code,
-                    EnrollDate = model.Enrollment.EnrollDate,
-                    StudentId = model.Enrollment.StudentId,
-                    CourseId = model.Enrollment.CourseId,
-                    ScheduleId = model.Enrollment.ScheduleId,
-                    TotalFee=model.Enrollment.TotalFee,
-                    PaidAmount= model.Enrollment.PaidAmount,
-                    DueAmount=model.Enrollment.DueAmount,
-                    Status=model.Enrollment.Status
-                };
+            if (isDuplicate)
+            {
+                TempData["Message"] = "❌ This student already enrolled in this course";
+                TempData["MessageType"] = "danger";
+                return ReturnEnrollmentView(model);
+            }
 
            
-                _unitofWork.EnrollmentRepository.Save(data);
-                _unitofWork.Complete();
+            var data = new Enrollment
+            {
+                Code = model.Enrollment.Code,
+                EnrollDate = model.Enrollment.EnrollDate,
+                StudentId = model.Enrollment.StudentId,
+                CourseId = model.Enrollment.CourseId,
+                ScheduleId = model.Enrollment.ScheduleId,
+                TotalFee = model.Enrollment.TotalFee,
+                PaidAmount = model.Enrollment.PaidAmount,
+                DueAmount = model.Enrollment.DueAmount,
+                Status = model.Enrollment.Status
+            };
 
-                var payment = new PaymentDetail
-                {
-                    Code=_unitofWork.PaymentDetailRepository.GenerateCode(),
-                    EnrollmentId=data.Id,
-                    PaymentDate=model.Enrollment.EnrollDate,
-                    Amount=model.Enrollment.PaidAmount,
-                    PaymentMethod=model.SelectedMethodId
-                };
+            _unitofWork.EnrollmentRepository.Save(data);
+            _unitofWork.Complete();
 
-                _unitofWork.PaymentDetailRepository.Save(payment);
+          
+            var payment = new PaymentDetail
+            {
+                Code = _unitofWork.PaymentDetailRepository.GenerateCode(),
+                EnrollmentId = data.Id,
+                PaymentDate = model.Enrollment.EnrollDate,
+                Amount = model.Enrollment.PaidAmount,
+                PaymentMethod = model.SelectedMethodId
+            };
 
-               var result=_unitofWork.Complete();
-                if (result > 0)
-                {
-                    TempData["Message"] = "✅ Save Successfull";
-                    TempData["MessageType"] = "success";
-                }
-                else
-                {
-                    TempData["Message"] = "❌ Save Faild";
-                    TempData["MessageType"] = "danger";
-                }
+            _unitofWork.PaymentDetailRepository.Save(payment);
+
+            int result = _unitofWork.Complete();
+
+          
+            if (result > 0)
+            {
+                TempData["Message"] = "✅ Save Successful";
+                TempData["MessageType"] = "success";
                 return RedirectToAction("Save");
+            }
+            else
+            {
+                TempData["Message"] = "❌ Save Failed";
+                TempData["MessageType"] = "danger";
+                return ReturnEnrollmentView(model);
+            }
         }
-    
+
+        private IActionResult ReturnEnrollmentView(EnrollmentVM model)
+        {
+            var vm = new EnrollmentVM
+            {
+                Enrollment = new Enrollment
+                {
+                    Code = _unitofWork.EnrollmentRepository.CreateGenerateCode(),
+                    EnrollDate = DateTime.Now.Date,
+                    TotalFee = model.Enrollment?.TotalFee,
+                    PaidAmount = model.Enrollment.PaidAmount,
+                    DueAmount = model.Enrollment?.DueAmount,
+                    Status = model.Enrollment?.Status
+                },
+                Course = _unitofWork.CourseRepository.GetAll(),
+                Students = _unitofWork.StudentRepository.GetAll(),
+                Schedule = _unitofWork.ScheduleRepository.GetAll(),
+                Method = _unitofWork.MethodRepository.GetAll()
+            };
+
+            return View("Save", vm);
+        }
+
         public IActionResult Delete(int id)
         {
             _unitofWork.EnrollmentRepository.Delete(id);
