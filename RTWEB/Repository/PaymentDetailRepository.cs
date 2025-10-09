@@ -12,7 +12,6 @@ namespace ZPWEB.Repository
             _db = db;
         }
 
-       
 
         public IEnumerable<PaymentDetailsVM> GetAll()
         {
