@@ -1,9 +1,11 @@
 ﻿@using ZPWEB.Models
 @model Method
 
+
 @{
-    var instractor = ViewBag.Method;
+    ViewData["Title"] = "Add Method";
 }
+
 <div class="container-fluid mt-3">
     <form asp-action="Save" id="myForm" method="post">
         <div class="row d-flex justify-content-center">

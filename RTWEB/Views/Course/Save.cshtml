@@ -1,9 +1,12 @@
 ﻿@using ZPWEB.Models
 @model Course
 
+
 @{
-    var instractor = ViewBag.Course;
+    ViewData["Title"] = "Add Course";
 }
+
+
 <div class="container-fluid mt-3">
     <form asp-action="Save" id="myForm" method="post">
         <div class="row d-flex justify-content-center">

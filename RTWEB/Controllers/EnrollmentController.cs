@@ -34,7 +34,7 @@ namespace ZPWEB.Controllers
                 {
                     Code = _unitofWork.EnrollmentRepository.CreateGenerateCode()
                 },
-                Course = _unitofWork.CourseRepository.GetAll(),
+                Course = _unitofWork.CourseRepository.ActiveGetAll(),
                 Students = _unitofWork.StudentRepository.GetAll(),
                 Schedule = _unitofWork.ScheduleRepository.GetAll(),
                 Method=_unitofWork.MethodRepository.GetAll()

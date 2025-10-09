@@ -67,6 +67,14 @@ namespace ZPWEB.Controllers
 
         public IActionResult Delete(int id)
         {
+            bool exestingData=_unitofWork.MethodRepository.TransactionCheck(id);
+            if (exestingData)
+            {
+                TempData["Message"] = "⚠️ Can't delete this Method — related Payment Details record(s) exist!";
+                TempData["MessageType"] = "danger";
+                return RedirectToAction("Index");
+            }
+
              _unitofWork.MethodRepository.Delete(id);
             var result= _unitofWork.Complete();
             if(result > 0)

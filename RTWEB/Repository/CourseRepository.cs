@@ -11,11 +11,13 @@ namespace ZPWEB.Repository
            _db= db;
         }
 
-    
-
         public IEnumerable<Course> GetAll()
         {
             return _db.Courses.ToList();
+        }
+        public IEnumerable<Course> ActiveGetAll()
+        {
+            return _db.Courses.Where(x=>x.Status==true).ToList();
         }
 
         public string GenerateCode()
@@ -50,6 +52,17 @@ namespace ZPWEB.Repository
         public Course GetById(int id)
         {
             return _db.Courses.Find(id);
+        }
+
+        public bool TransactionCheck(int id)
+        {
+          return _db.Enrollments.Any(x=>x.CourseId==id);
+        }
+
+        public void UpdateStatus(int id)
+        {
+            var course = _db.Courses.Find(id);
+            course.Status = !course.Status;
         }
     }
 }

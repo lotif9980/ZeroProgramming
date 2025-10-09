@@ -9,6 +9,7 @@ namespace ZPWEB.Repository
         public string GenerateCode();
         public bool DuplicateCheck(string name);
         public void Delete(int id);
+        public bool TransactionCheck(int id);
 
     }
 }

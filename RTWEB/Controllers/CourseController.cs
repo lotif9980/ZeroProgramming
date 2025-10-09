@@ -68,7 +68,14 @@ namespace ZPWEB.Controllers
 
         public IActionResult Delete(int id)
         {
-          
+           bool exestingData = _unitofWork.CourseRepository.TransactionCheck(id);
+            if (exestingData)
+            {
+                    TempData["Message"] = "⚠️ Can't delete this Course — related Enrollment record(s) exist!";
+                    TempData["MessageType"] = "danger";
+
+                return RedirectToAction("Index");
+            }
             _unitofWork.CourseRepository.Delete(id);
             var result=_unitofWork.Complete();
             if(result > 0)
@@ -82,6 +89,33 @@ namespace ZPWEB.Controllers
                 TempData["MessageType"] = "danger";
             }
         
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult ToggleStatus(int id)
+        {
+            var data =_unitofWork.CourseRepository.GetById(id);
+            if (data == null)
+            {
+                TempData["Message"] = "⚠️ Data not found!";
+                TempData["MessageType"] = "danger";
+                return RedirectToAction("Index");
+            }
+
+            _unitofWork.CourseRepository.UpdateStatus(id);
+            var result = _unitofWork.Complete();
+
+            if (result > 0)
+            {
+                TempData["Message"] = "✅ Update Successfuly";
+                TempData["MessageType"] = "success";
+            }
+            else
+            {
+                TempData["Message"] = "❌ Update failed";
+                TempData["MessageType"] = "danger";
+            }
+
             return RedirectToAction("Index");
         }
     }

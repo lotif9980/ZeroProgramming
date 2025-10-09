@@ -47,5 +47,10 @@ namespace ZPWEB.Repository
             var data = _db.Methods.Find(id);
             _db.Remove(data);
         }
+
+        public bool TransactionCheck(int id)
+        {
+            return _db.PaymentDetails.Any(x=>x.PaymentMethod== id);
+        }
     }
 }

@@ -3,8 +3,9 @@
 @model PaymentDetailsSaveVM
 
 @{
-    var instractor = ViewBag.Method;
+    ViewData["Title"] = "Add Payment Details";
 }
+
 <div class="container mt-3">
     <form asp-action="Save" id="myForm" method="post" enctype="multipart/form-data">
         <div class="card shadow-sm">

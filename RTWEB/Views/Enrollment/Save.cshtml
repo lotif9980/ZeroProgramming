@@ -2,6 +2,12 @@
 @using ZPWEB.ViewModel
 @model EnrollmentVM
 
+
+@{
+    ViewData["Title"] = "Add Enrollment";
+}
+
+
 <div class="container mt-3">
     <form asp-action="Save" id="myForm" method="post" enctype="multipart/form-data">
         <div class="card shadow-sm">
@@ -55,7 +61,7 @@
                         <div class="mb-3 row">
                             <label asp-for="Enrollment.ScheduleId" class="col-sm-4 col-form-label">Schedule</label>
                             <div class="col-sm-8">
-                                <select id="scheduleId" asp-for="Enrollment.ScheduleId" class="form-control schedule-dropdownn"
+                                <select id="scheduleId" asp-for="Enrollment.ScheduleId" class="form-control schedule-dropdown"
                                         asp-items="@(new SelectList(Model.Schedule, "Id", "Name"))">
                                     <option value="">---Select Schedule---</option>
                                 </select>
@@ -70,7 +76,7 @@
                         <div class="mb-3 row">
                             <label asp-for="SelectedMethodId" class="col-sm-4 col-form-label">Method</label>
                             <div class="col-sm-8">
-                                <select id="scheduleId" asp-for="SelectedMethodId" class="form-control schedule-dropdownn"
+                                <select asp-for="SelectedMethodId" class="form-control method-dropdown"
                                         asp-items="@(new SelectList(Model.Method, "Id", "Name"))">
                                     <option value="">---Select Method---</option>
                                 </select>
@@ -125,7 +131,7 @@
 
         $("#enrollDate").datepicker({ dateFormat: "dd-mm-yy", changeMonth: true, changeYear: true });
         // Select2 init
-        $(".course-dropdown,.student-dropdown,.schedule-dropdownn").select2({ width: '100%', allowClear: true });
+        $(".course-dropdown,.student-dropdown,.schedule-dropdown ,.method-dropdown").select2({ width: '100%', allowClear: true });
         $(document).on('select2:open', () => { document.querySelector('.select2-search__field').focus(); });
 
         $("#myForm").on('submit',function(){

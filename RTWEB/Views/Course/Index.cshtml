@@ -25,6 +25,7 @@
                                 <th>Course Name</th>
                                 <th>Course Fee</th>
                                 <th> Duration</th>
+                                <th>Status</th>
                                 <th style="width:20px;text-align:center">Action</th>
                             </tr>
                         </thead>
@@ -40,6 +41,14 @@
                                     <td>@item.CourseName</td>
                                     <td>@item.CourseFee</td>
                                     <td>@item.Duration</td>
+                                    <td>
+                                        <form asp-action="ToggleStatus" asp-controller="Course" method="post" style="display:inline;">
+                                            <input type="hidden" name="id" value="@item.Id" />
+                                            <button type="submit" class="btn btn-sm @(item.Status ? "btn-success" : "btn-danger")">
+                                                @(item.Status ? "Active" : "Inactive")
+                                            </button>
+                                        </form>
+                                    </td>
                                     <td>
                                         <div class="d-flex justify-content-center btn-group-sm ">
 

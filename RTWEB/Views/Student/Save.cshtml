@@ -1,6 +1,9 @@
 ﻿@using ZPWEB.Models
 @using ZPWEB.ViewModel
 @model StudentVM
+@{
+    ViewData["Title"] = "Student Add";
+}
 
 <div class="container mt-3">
     <form asp-action="Save" id="myForm" method="post" enctype="multipart/form-data">
@@ -109,7 +112,7 @@
                         <div class="mb-4 row">
                             <label asp-for="SelectCourceId" class="col-sm-4 col-form-label">Course</label>
                             <div class="col-sm-8">
-                                <select id="courseId" asp-for="SelectCourceId" class="form-control"
+                                <select id="courseId" asp-for="SelectCourceId" class="form-control course-dropdown"
                                         asp-items="@(new SelectList(Model.Courses, "Id", "CourseName"))">
                                     <option value="">---Select Course Name---</option>
                                 </select>
@@ -120,7 +123,7 @@
                         <div class="mb-4 row">
                             <label asp-for="ScheduleId" class="col-sm-4 col-form-label">Schedule</label>
                             <div class="col-sm-8">
-                                <select id="scheduleid" asp-for="ScheduleId" class="form-control"
+                                <select id="scheduleid" asp-for="ScheduleId" class="form-control schedule-dropdownn"
                                         asp-items="@(new SelectList(Model.Schedules, "Id", "Name"))">
                                     <option value="">---Select Schedule---</option>
                                 </select>
@@ -131,7 +134,7 @@
                         <div class="mb-4 row">
                             <label asp-for="MethodId" class="col-sm-4 col-form-label">Method</label>
                             <div class="col-sm-8">
-                                <select id="methodid" asp-for="MethodId" class="form-control"
+                                <select id="methodid" asp-for="MethodId" class="form-control method-dropdown"
                                         asp-items="@(new SelectList(Model.Methods, "Id", "Name"))">
                                     <option value="">---Select Method---</option>
                                 </select>
@@ -180,6 +183,11 @@
 
 <script>
     $(document).ready(function(){
+
+        $(".course-dropdown,.schedule-dropdownn, .method-dropdown").select2({ width: '100%', allowClear: true });
+        $(document).on('select2:open', () => { document.querySelector('.select2-search__field').focus(); });
+
+
         $("#myForm").on('submit',function(){
             var name=$("#cName").val().trim();
 
