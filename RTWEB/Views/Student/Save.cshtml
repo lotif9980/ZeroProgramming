@@ -62,7 +62,7 @@
                         <div class="mb-3 row">
                             <label asp-for="Student.FatherPhoneNumber" class="col-sm-4 col-form-label">Father Phone</label>
                             <div class="col-sm-8">
-                                <input asp-for="Student.FatherPhoneNumber" class="form-control" id="fatherPhoneNumber" type="number">
+                                <input asp-for="Student.FatherPhoneNumber" class="form-control" id="fatherContactNo" type="number">
                                 <span asp-validation-for="Student.FatherPhoneNumber" class="text-danger"></span>
                             </div>
                         </div>
@@ -190,12 +190,20 @@
 
         $("#myForm").on('submit',function(){
             var name=$("#cName").val().trim();
+            var contactNo=$("#contactNo").val().trim();
+            var address=$("#address").val().trim();
+            var fatherName=$("#fatherName").val().trim();
+            var fatherContactNo=$("#fatherContactNo").val().trim();
 
 
             var offset=20;
             var container=$("body");
 
             if(name==="")offset=createAlert("❌ Name is Required",container,offset)
+            if(contactNo==="")offset=createAlert("❌ Contact No is Required",container,offset)
+            if(address==="")offset=createAlert("❌ Address is Required",container,offset)
+            if(fatherName==="")offset=createAlert("❌ Father Name is Required",container,offset)
+            if(fatherContactNo==="")offset=createAlert("❌ Father Contact no is Required",container,offset)
 
 
                if($(".field-alert").length >0) return false;
