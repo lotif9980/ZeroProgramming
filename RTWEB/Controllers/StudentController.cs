@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using ZPWEB.Enum;
 using ZPWEB.Helpers;
 using ZPWEB.Models;
 using ZPWEB.Repository;
@@ -243,7 +244,10 @@ namespace ZPWEB.Controllers
                 EnrollmentId = enrollment.Id,
                 PaymentDate = DateTime.Now.Date,
                 Amount = model.PaidAmount,
-                PaymentMethod = model.MethodId
+                PaymentMethod = model.MethodId,
+                Note= "Payment at the time of admission",
+                Status = EnumForPaymentDetailsType.Admission
+
             };
             _unitofWork.PaymentDetailRepository.Save(paymentDetails);
             _unitofWork.Complete();

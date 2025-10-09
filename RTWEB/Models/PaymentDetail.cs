@@ -1,4 +1,6 @@
-﻿namespace ZPWEB.Models
+﻿using ZPWEB.Enum;
+
+namespace ZPWEB.Models
 {
     public class PaymentDetail
     {
@@ -10,5 +12,7 @@
         public int? PaymentMethod {  get; set; }
         public string? TransactionId {  get; set; }
         public string? Note { get; set; }
+        //public int? Status { get; set; }
+        public EnumForPaymentDetailsType Status {  get; set; }
     }
 }

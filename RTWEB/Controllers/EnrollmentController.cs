@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ZPWEB.Enum;
 using ZPWEB.Helpers;
 using ZPWEB.Models;
 using ZPWEB.Repository;
@@ -49,7 +50,8 @@ namespace ZPWEB.Controllers
                 string.IsNullOrEmpty(model.Enrollment.Code) ||
                 model.Enrollment.StudentId == null ||
                 model.Enrollment.CourseId == null ||
-                model.Enrollment.ScheduleId == null)
+                model.Enrollment.ScheduleId == null ||
+                model.SelectedMethodId==null)
             {
                 TempData["Message"] = "❌ Invalid Data Submit";
                 TempData["MessageType"] = "danger";
@@ -91,7 +93,9 @@ namespace ZPWEB.Controllers
                 EnrollmentId = data.Id,
                 PaymentDate = model.Enrollment.EnrollDate,
                 Amount = model.Enrollment.PaidAmount,
-                PaymentMethod = model.SelectedMethodId
+                PaymentMethod = model.SelectedMethodId,
+                Note= "Payment at the time of enrollment",
+                Status = EnumForPaymentDetailsType.Enrollment
             };
 
             _unitofWork.PaymentDetailRepository.Save(payment);

@@ -13,4 +13,11 @@ namespace ZPWEB.Enum
         Thursday = 6,
         Friday = 7
     }
+
+    public enum EnumForPaymentDetailsType
+    {
+        Admission=1,
+        Enrollment=2,
+        NormalPayment=3
+    }
 }
