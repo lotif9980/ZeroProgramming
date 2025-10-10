@@ -66,6 +66,18 @@ namespace ZPWEB.Controllers
             return View(course);
         }
 
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            var student=_unitofWork.CourseRepository.GetById(id);
+            if (student == null)
+            {
+                TempData["Message"] = "❌ data not found";
+                TempData["MessageType"] = "danger";
+            }
+            return View(student);
+        }
+
         public IActionResult Delete(int id)
         {
            bool exestingData = _unitofWork.CourseRepository.TransactionCheck(id);
