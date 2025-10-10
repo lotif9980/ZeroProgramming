@@ -52,5 +52,10 @@ namespace ZPWEB.Repository
         {
             return _db.PaymentDetails.Any(x=>x.PaymentMethod== id);
         }
+
+        public Method GetById(int id)
+        {
+            return _db.Methods.Find(id);
+        }
     }
 }

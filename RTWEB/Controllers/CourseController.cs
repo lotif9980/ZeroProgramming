@@ -47,7 +47,16 @@ namespace ZPWEB.Controllers
                     return View(course);
                 }
 
-                _unitofWork.CourseRepository.Save(course);
+                var data = new Course
+                {
+                    Code=course.Code,
+                    CourseName=course.CourseName,
+                    CourseFee=course.CourseFee,
+                    Status=true,
+                    Duration=course.Duration
+                };
+
+                _unitofWork.CourseRepository.Save(data);
                var result= _unitofWork.Complete();
                 if (result > 0)
                 {
@@ -127,6 +136,26 @@ namespace ZPWEB.Controllers
                 TempData["Message"] = "❌ Update failed";
                 TempData["MessageType"] = "danger";
             }
+
+            return RedirectToAction("Index");
+        }
+
+
+        public IActionResult Update(Course model)
+        {
+            _unitofWork.CourseRepository.Update(model);
+            var result =_unitofWork.Complete();
+            if (result > 0)
+            {
+                TempData["Message"] = "✅ Update Successfuly";
+                TempData["MessageType"] = "success";
+            }
+            else
+            {
+                TempData["Message"] = "❌ Update failed";
+                TempData["MessageType"] = "danger";
+            }
+        
 
             return RedirectToAction("Index");
         }

@@ -90,5 +90,11 @@ namespace ZPWEB.Controllers
             return RedirectToAction("Index");
         }
 
+
+        public IActionResult Edit(int id)
+        {
+            var method = _unitofWork.MethodRepository.GetById(id);
+            return View(method);
+        }
     }
 }

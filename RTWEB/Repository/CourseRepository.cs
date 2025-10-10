@@ -64,5 +64,10 @@ namespace ZPWEB.Repository
             var course = _db.Courses.Find(id);
             course.Status = !course.Status;
         }
+
+        public void Update(Course course)
+        {
+            _db.Update(course);
+        }
     }
 }

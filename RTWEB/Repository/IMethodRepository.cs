@@ -10,6 +10,6 @@ namespace ZPWEB.Repository
         public bool DuplicateCheck(string name);
         public void Delete(int id);
         public bool TransactionCheck(int id);
-
+        public Method GetById(int id);
     }
 }

@@ -14,7 +14,7 @@ namespace ZPWEB.Models
         public decimal CourseFee { get; set; }
         [Required]
         public string? Duration { get; set; }
-        public bool Status { get; set; } = true;
+        public bool Status { get; set; } 
 
     }
 }

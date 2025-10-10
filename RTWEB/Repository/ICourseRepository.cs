@@ -13,6 +13,8 @@ namespace ZPWEB.Repository
         public Course GetById(int id);
         public bool TransactionCheck(int id);
         public void UpdateStatus(int id);
-       
+        public void Update(Course course);
+
+
     }
 }

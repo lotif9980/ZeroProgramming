@@ -5,7 +5,6 @@
     ViewData["Title"] = "Edit Course";
 }
 
-
 <div class="container-fluid mt-3">
     <form asp-action="Update" id="myForm" method="post">
         <div class="row d-flex justify-content-center">
@@ -18,6 +17,14 @@
                         </div>
                     </div>
                     <div class="card-body">
+                        <div class="mb-3 row">
+                            <label asp-for="Code" class="col-sm-3 col-form-label">Id</label>
+                            <div class="col-sm-9">
+                                <input asp-for="Id" class="form-control" id="Id" readonly>
+                                <span asp-validation-for="Id" class="text-danger"></span>
+                            </div>
+                        </div>
+
                         <div class="mb-3 row">
                             <label asp-for="Code" class="col-sm-3 col-form-label">Code</label>
                             <div class="col-sm-9">
