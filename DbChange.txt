@@ -1,175 +1,11 @@
------------------------------09.10.2025
-/* To prevent any potential data loss issues, you should review this script in detail before running it outside the context of the database designer.*/
-BEGIN TRANSACTION
-SET QUOTED_IDENTIFIER ON
-SET ARITHABORT ON
-SET NUMERIC_ROUNDABORT OFF
-SET CONCAT_NULL_YIELDS_NULL ON
-SET ANSI_NULLS ON
-SET ANSI_PADDING ON
-SET ANSI_WARNINGS ON
-COMMIT
-BEGIN TRANSACTION
-GO
-ALTER TABLE dbo.Courses ADD
-	Status bit NULL
-GO
-ALTER TABLE dbo.Courses SET (LOCK_ESCALATION = TABLE)
-GO
-COMMIT
 
------------------------------09.10.2025
-/* To prevent any potential data loss issues, you should review this script in detail before running it outside the context of the database designer.*/
-BEGIN TRANSACTION
-SET QUOTED_IDENTIFIER ON
-SET ARITHABORT ON
-SET NUMERIC_ROUNDABORT OFF
-SET CONCAT_NULL_YIELDS_NULL ON
-SET ANSI_NULLS ON
-SET ANSI_PADDING ON
-SET ANSI_WARNINGS ON
-COMMIT
-BEGIN TRANSACTION
-GO
-ALTER TABLE dbo.PaymentDetails ADD
-	Status int NULL
-GO
-ALTER TABLE dbo.PaymentDetails SET (LOCK_ESCALATION = TABLE)
-GO
-COMMIT
+-------first execute -------------
+----------------------------------
 
------------------------
-USE [zpweb]
-GO
+CREATE DATABASE zpweb;
 
-----------------06.10.2025----------------
-/****** Object:  Table [dbo].[PaymentDetails]    Script Date: 06-Oct-25 9:59:55 PM ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE TABLE [dbo].[PaymentDetails](
-	[Id] [int] IDENTITY(1,1) NOT NULL,
-	[Code] [nvarchar](50) NULL,
-	[EnrollmentId] [int] NULL,
-	[PaymentDate] [datetime] NULL,
-	[Amount] [decimal](18, 0) NULL,
-	[PaymentMethod] [int] NULL,
-	[TransactionId] [nvarchar](50) NULL,
-	[Note] [nvarchar](50) NULL,
- CONSTRAINT [PK_PaymentDetails] PRIMARY KEY CLUSTERED 
-(
-	[Id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-
-
-
-
-----------------
-
-/* To prevent any potential data loss issues, you should review this script in detail before running it outside the context of the database designer.*/
-BEGIN TRANSACTION
-SET QUOTED_IDENTIFIER ON
-SET ARITHABORT ON
-SET NUMERIC_ROUNDABORT OFF
-SET CONCAT_NULL_YIELDS_NULL ON
-SET ANSI_NULLS ON
-SET ANSI_PADDING ON
-SET ANSI_WARNINGS ON
-COMMIT
-BEGIN TRANSACTION
-GO
-ALTER TABLE dbo.Enrollments ADD
-	TotalFee decimal(18, 0) NULL,
-	PaidAmount decimal(18, 0) NULL,
-	DueAmount decimal(18, 0) NULL,
-	Status int NULL
-GO
-ALTER TABLE dbo.Enrollments ADD CONSTRAINT
-	DF_Enrollments_TotalFee DEFAULT 0 FOR TotalFee
-GO
-ALTER TABLE dbo.Enrollments ADD CONSTRAINT
-	DF_Enrollments_PaidAmount DEFAULT 0 FOR PaidAmount
-GO
-ALTER TABLE dbo.Enrollments ADD CONSTRAINT
-	DF_Enrollments_DueAmount DEFAULT 0 FOR DueAmount
-GO
-ALTER TABLE dbo.Enrollments SET (LOCK_ESCALATION = TABLE)
-GO
-COMMIT
-
-------------------30.09.2025
-/* To prevent any potential data loss issues, you should review this script in detail before running it outside the context of the database designer.*/
-BEGIN TRANSACTION
-SET QUOTED_IDENTIFIER ON
-SET ARITHABORT ON
-SET NUMERIC_ROUNDABORT OFF
-SET CONCAT_NULL_YIELDS_NULL ON
-SET ANSI_NULLS ON
-SET ANSI_PADDING ON
-SET ANSI_WARNINGS ON
-COMMIT
-BEGIN TRANSACTION
-GO
-ALTER TABLE dbo.Enrollments ADD
-	ScheduleId int NULL
-GO
-ALTER TABLE dbo.Enrollments SET (LOCK_ESCALATION = TABLE)
-GO
-COMMIT
-
-------------------30.09.2025
-/* To prevent any potential data loss issues, you should review this script in detail before running it outside the context of the database designer.*/
-BEGIN TRANSACTION
-SET QUOTED_IDENTIFIER ON
-SET ARITHABORT ON
-SET NUMERIC_ROUNDABORT OFF
-SET CONCAT_NULL_YIELDS_NULL ON
-SET ANSI_NULLS ON
-SET ANSI_PADDING ON
-SET ANSI_WARNINGS ON
-COMMIT
-BEGIN TRANSACTION
-GO
-ALTER TABLE dbo.Students ADD
-	Picture nvarchar(250) NULL
-GO
-ALTER TABLE dbo.Students SET (LOCK_ESCALATION = TABLE)
-GO
-COMMIT
-------------------28.09.2025
-USE [zpweb]
-GO
-
-/****** Object:  Table [dbo].[Schedules]    Script Date: 28-Sep-25 11:34:14 PM ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE TABLE [dbo].[Schedules](
-	[Id] [int] IDENTITY(1,1) NOT NULL,
-	[Code] [nvarchar](250) NULL,
-	[Name] [nvarchar](250) NULL,
- CONSTRAINT [PK_Schedules] PRIMARY KEY CLUSTERED 
-(
-	[Id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-
-
-
--------------------
-
-USE [zpweb]
-GO
-/****** Object:  Table [dbo].[Courses]    Script Date: 27-Sep-25 5:26:25 PM ******/
+-------Execute All -------------
+----------------------------------
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -180,13 +16,14 @@ CREATE TABLE [dbo].[Courses](
 	[CourseName] [nvarchar](250) NULL,
 	[CourseFee] [decimal](18, 0) NULL,
 	[Duration] [nvarchar](250) NULL,
+	[Status] [bit] NULL,
  CONSTRAINT [PK_Courses] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Enrollments]    Script Date: 27-Sep-25 5:26:25 PM ******/
+/****** Object:  Table [dbo].[Enrollments]    Script Date: 11-Oct-25 8:46:13 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -197,13 +34,18 @@ CREATE TABLE [dbo].[Enrollments](
 	[EnrollDate] [datetime] NULL,
 	[StudentId] [int] NULL,
 	[CourseId] [int] NULL,
+	[ScheduleId] [int] NULL,
+	[TotalFee] [decimal](18, 0) NOT NULL,
+	[PaidAmount] [decimal](18, 0) NOT NULL,
+	[DueAmount] [decimal](18, 0) NOT NULL,
+	[Status] [int] NULL,
  CONSTRAINT [PK_Enrollments] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Instractors]    Script Date: 27-Sep-25 5:26:25 PM ******/
+/****** Object:  Table [dbo].[Instractors]    Script Date: 11-Oct-25 8:46:13 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -220,7 +62,7 @@ CREATE TABLE [dbo].[Instractors](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Methods]    Script Date: 27-Sep-25 5:26:25 PM ******/
+/****** Object:  Table [dbo].[Methods]    Script Date: 11-Oct-25 8:46:13 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -235,25 +77,28 @@ CREATE TABLE [dbo].[Methods](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Payments]    Script Date: 27-Sep-25 5:26:25 PM ******/
+/****** Object:  Table [dbo].[PaymentDetails]    Script Date: 11-Oct-25 8:46:13 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[Payments](
+CREATE TABLE [dbo].[PaymentDetails](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
-	[Code] [nvarchar](250) NULL,
+	[Code] [nvarchar](50) NULL,
 	[EnrollmentId] [int] NULL,
-	[Amount] [decimal](18, 0) NULL,
 	[PaymentDate] [datetime] NULL,
-	[PaymentMethodId] [int] NULL,
- CONSTRAINT [PK_Payments] PRIMARY KEY CLUSTERED 
+	[Amount] [decimal](18, 0) NULL,
+	[PaymentMethod] [int] NULL,
+	[TransactionId] [nvarchar](50) NULL,
+	[Note] [nvarchar](50) NULL,
+	[Status] [int] NULL,
+ CONSTRAINT [PK_PaymentDetails] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Schedules]    Script Date: 27-Sep-25 5:26:25 PM ******/
+/****** Object:  Table [dbo].[Schedules]    Script Date: 11-Oct-25 8:46:13 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -261,18 +106,14 @@ GO
 CREATE TABLE [dbo].[Schedules](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[Code] [nvarchar](250) NULL,
-	[CourseId] [int] NULL,
-	[Day] [int] NULL,
-	[StartTime] [time](7) NULL,
-	[EndTime] [time](7) NULL,
-	[InstractorId] [int] NULL,
+	[Name] [nvarchar](250) NULL,
  CONSTRAINT [PK_Schedules] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Students]    Script Date: 27-Sep-25 5:26:25 PM ******/
+/****** Object:  Table [dbo].[Students]    Script Date: 11-Oct-25 8:46:13 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -288,6 +129,7 @@ CREATE TABLE [dbo].[Students](
 	[MotherName] [nvarchar](250) NULL,
 	[SchoolName] [nvarchar](250) NULL,
 	[Class] [nvarchar](250) NULL,
+	[Picture] [nvarchar](250) NULL,
  CONSTRAINT [PK_Students] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
@@ -300,5 +142,9 @@ ALTER TABLE [dbo].[Enrollments] ADD  CONSTRAINT [DF_Enrollments_StudentId]  DEFA
 GO
 ALTER TABLE [dbo].[Enrollments] ADD  CONSTRAINT [DF_Enrollments_CourseId]  DEFAULT ((0)) FOR [CourseId]
 GO
-ALTER TABLE [dbo].[Payments] ADD  CONSTRAINT [DF_Payments_EnrollmentId]  DEFAULT ((0)) FOR [EnrollmentId]
+ALTER TABLE [dbo].[Enrollments] ADD  CONSTRAINT [DF_Enrollments_TotalFee]  DEFAULT ((0)) FOR [TotalFee]
+GO
+ALTER TABLE [dbo].[Enrollments] ADD  CONSTRAINT [DF_Enrollments_PaidAmount]  DEFAULT ((0)) FOR [PaidAmount]
+GO
+ALTER TABLE [dbo].[Enrollments] ADD  CONSTRAINT [DF_Enrollments_DueAmount]  DEFAULT ((0)) FOR [DueAmount]
 GO
