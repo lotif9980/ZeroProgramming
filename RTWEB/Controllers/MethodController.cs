@@ -96,5 +96,6 @@ namespace ZPWEB.Controllers
             var method = _unitofWork.MethodRepository.GetById(id);
             return View(method);
         }
+
     }
 }
