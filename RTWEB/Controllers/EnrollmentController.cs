@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ZPWEB.Enum;
 using ZPWEB.Helpers;
 using ZPWEB.Models;
@@ -7,6 +8,7 @@ using ZPWEB.ViewModel;
 
 namespace ZPWEB.Controllers
 {
+    [Authorize]
     public class EnrollmentController : Controller
     {
         protected readonly IUnitofWork _unitofWork;

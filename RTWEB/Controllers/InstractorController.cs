@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using ZPWEB.Helpers;
 using ZPWEB.Models;
@@ -6,6 +7,7 @@ using ZPWEB.Repository;
 
 namespace ZPWEB.Controllers
 {
+    [Authorize]
     public class InstractorController : Controller
     {
         protected readonly IUnitofWork _unitofWork;

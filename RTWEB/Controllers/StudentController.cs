@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using ZPWEB.Enum;
 using ZPWEB.Helpers;
@@ -8,6 +9,7 @@ using ZPWEB.ViewModel;
 
 namespace ZPWEB.Controllers
 {
+    [Authorize]
     public class StudentController : Controller
     {
         protected readonly IUnitofWork _unitofWork;

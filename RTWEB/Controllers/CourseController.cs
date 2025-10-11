@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ZPWEB.Helpers;
 using ZPWEB.Models;
 using ZPWEB.Repository;
 
 namespace ZPWEB.Controllers
 {
+    [Authorize]
     public class CourseController : Controller
     {
         protected readonly IUnitofWork _unitofWork;
