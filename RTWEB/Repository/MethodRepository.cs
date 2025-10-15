@@ -57,5 +57,10 @@ namespace ZPWEB.Repository
         {
             return _db.Methods.Find(id);
         }
+
+        public void Update(Method method)
+        {
+           _db.Methods.Update(method);
+        }
     }
 }

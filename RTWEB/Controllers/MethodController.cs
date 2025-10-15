@@ -99,5 +99,23 @@ namespace ZPWEB.Controllers
             return View(method);
         }
 
+        public IActionResult Update(Method model)
+        {
+            _unitofWork.MethodRepository.Update(model);
+            var result=_unitofWork.Complete();
+            if (result > 0)
+            {
+                TempData["Message"] = "✅ Update successful.";
+                TempData["MessageType"] = "success";
+            }
+            else
+            {
+                TempData["Message"] = "❌ Update Failed";
+                TempData["MessageType"] = "danger";
+            }
+
+            return RedirectToAction("Index");
+        }
+
     }
 }

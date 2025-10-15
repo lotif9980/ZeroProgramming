@@ -61,6 +61,7 @@ namespace ZPWEB.Controllers
 
         public IActionResult Delete(int id)
         {
+
             _unitofWork.ScheduleRepository.Delete(id);
             _unitofWork.Complete();
             TempData["Message"] = "❌ Schedule has been Delete";

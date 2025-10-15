@@ -11,5 +11,6 @@ namespace ZPWEB.Repository
         public void Delete(int id);
         public bool TransactionCheck(int id);
         public Method GetById(int id);
+        public void Update(Method method);
     }
 }

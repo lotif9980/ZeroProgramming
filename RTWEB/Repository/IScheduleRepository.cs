@@ -10,5 +10,6 @@ namespace ZPWEB.Repository
         public void Save(Schedule schedule);
         public bool DuplicateCheck(string name);
         public void Delete(int id);
+        public bool TransactionCheck(int id);
     }
 }
