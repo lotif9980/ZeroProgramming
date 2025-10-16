@@ -82,5 +82,41 @@ namespace ZPWEB.Controllers
             var schedule=_unitofWork.ScheduleRepository.GetById(id);
             return View(schedule);
         }
+
+        [HttpPost]
+        public IActionResult Update(Schedule schedule)
+        {
+            if (schedule == null || string.IsNullOrEmpty(schedule.Name))
+            {
+                TempData["Message"] = "❌ Invalid data submitted";
+                TempData["MessageType"] = "danger";
+                return RedirectToAction("Index");
+            }
+            var isExisting = _unitofWork.ScheduleRepository
+                .DuplicateCheck(schedule.Name); 
+
+            if (isExisting)
+            {
+                TempData["Message"] = "❌ Schedule name already exists";
+                TempData["MessageType"] = "danger";
+                return RedirectToAction("Index");
+            }
+
+            _unitofWork.ScheduleRepository.Update(schedule);
+            var result = _unitofWork.Complete();
+
+            if (result > 0)
+            {
+                TempData["Message"] = "✅ Schedule has been updated successfully";
+                TempData["MessageType"] = "success";
+            }
+            else
+            {
+                TempData["Message"] = "❌ Update failed";
+                TempData["MessageType"] = "danger";
+            }
+
+            return RedirectToAction("Index");
+        }
     }
 }

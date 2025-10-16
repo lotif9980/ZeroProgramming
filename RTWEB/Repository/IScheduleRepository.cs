@@ -12,5 +12,6 @@ namespace ZPWEB.Repository
         public void Delete(int id);
         public bool TransactionCheck(int id);
         public Schedule GetById(int id);
+        public void Update(Schedule schedule);
     }
 }

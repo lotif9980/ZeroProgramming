@@ -58,5 +58,10 @@ namespace ZPWEB.Repository
         {
             return _db.Schedules.Find(id);
         }
+
+        public void Update(Schedule schedule)
+        {
+            _db.Schedules.Update(schedule);
+        }
     }
 }
