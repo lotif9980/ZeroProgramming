@@ -64,5 +64,10 @@ namespace ZPWEB.Repository
                 _db.Entry(exestingStudent).CurrentValues.SetValues(student);
             }
         }
+
+        public bool ExestingCheck(int id)
+        {
+           return _db.Enrollments.Any(x=>x.StudentId==id);
+        }
     }
 }

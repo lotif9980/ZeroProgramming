@@ -9,7 +9,7 @@ namespace ZPWEB.Repository
         public void Save(Student student);
         public bool DuplicateCheck(string name, string pNumber);
         public void Delete(int id); 
-
+        public bool ExestingCheck(int id);
         public void Update(Student student);
     }
 }

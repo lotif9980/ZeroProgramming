@@ -258,6 +258,14 @@ namespace ZPWEB.Controllers
 
         public IActionResult Delete(int id)
         {
+            bool data=  _unitofWork.StudentRepository.ExestingCheck(id);
+            if (data)
+            {
+                TempData["Message"] = "❌ Enrollment table data found";
+                TempData["MessageType"] = "danger";
+                return RedirectToAction("Index");
+            }
+
             _unitofWork.StudentRepository.Delete(id);
            var result=_unitofWork.Complete();
 
