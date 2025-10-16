@@ -11,5 +11,6 @@ namespace ZPWEB.Repository
         public void Delete(int id); 
         public bool ExestingCheck(int id);
         public void Update(Student student);
+        public Student GetById(int id);
     }
 }

@@ -323,5 +323,11 @@ namespace ZPWEB.Controllers
 
             return View("Save", vm);
         }
+
+        public IActionResult Edit(int id)
+        {
+            var student=_unitofWork.StudentRepository.GetById(id);
+            return View(student);
+        }
     }
 }

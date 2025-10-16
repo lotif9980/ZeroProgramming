@@ -69,5 +69,10 @@ namespace ZPWEB.Repository
         {
            return _db.Enrollments.Any(x=>x.StudentId==id);
         }
+
+        public Student GetById(int id)
+        {
+            return _db.Students.Find(id);
+        }
     }
 }

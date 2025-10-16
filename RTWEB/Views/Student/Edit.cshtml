@@ -1,0 +1,258 @@
+﻿@using ZPWEB.Models
+@using ZPWEB.ViewModel
+@model StudentVM
+@{
+    ViewData["Title"] = "Student Add";
+}
+
+<div class="container mt-3">
+    <form asp-action="Save" id="myForm" method="post" enctype="multipart/form-data">
+        <div class="card shadow-sm">
+            <div class="card-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <strong class="mb-0">Student Information</strong>
+                    <a class="btn btn-primary btn-sm" asp-action="Index">Existing Student</a>
+                </div>
+
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <!-- Left Column -->
+                    <div class="col-md-6 border-end">
+                        <div class="mb-3 row">
+                            <label asp-for="Student.Id" class="col-sm-4 col-form-label">Id</label>
+                            <div class="col-sm-8">
+                                <input asp-for="Student.Id" class="form-control" id="Id" readonly>
+                                <span asp-validation-for="Student.Id" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label asp-for="Student.Code" class="col-sm-4 col-form-label">Code</label>
+                            <div class="col-sm-8">
+                                <input asp-for="Student.Code" class="form-control" id="code" readonly>
+                                <span asp-validation-for="Student.Code" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label asp-for="Student.Name" class="col-sm-4 col-form-label">Name</label>
+                            <div class="col-sm-8">
+                                <input asp-for="Student.Name" class="form-control" id="cName">
+                                <span asp-validation-for="Student.Name" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label asp-for="Student.ContactNo" class="col-sm-4 col-form-label">Contact No</label>
+                            <div class="col-sm-8">
+                                <input asp-for="Student.ContactNo" class="form-control" id="contactNo" type="number">
+                                <span asp-validation-for="Student.ContactNo" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label asp-for="Student.Address" class="col-sm-4 col-form-label">Address</label>
+                            <div class="col-sm-8">
+                                <input asp-for="Student.Address" class="form-control" id="address">
+                                <span asp-validation-for="Student.Address" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label asp-for="Student.FatherName" class="col-sm-4 col-form-label">Father Name</label>
+                            <div class="col-sm-8">
+                                <input asp-for="Student.FatherName" class="form-control" id="fatherName">
+                                <span asp-validation-for="Student.FatherName" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column -->
+                    <div class="col-md-6">
+                        <div class="mb-3 row">
+                            <label asp-for="Student.FatherPhoneNumber" class="col-sm-4 col-form-label">Father Phone</label>
+                            <div class="col-sm-8">
+                                <input asp-for="Student.FatherPhoneNumber" class="form-control" id="fatherContactNo" type="number">
+                                <span asp-validation-for="Student.FatherPhoneNumber" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label asp-for="Student.MotherName" class="col-sm-4 col-form-label">Mother Name</label>
+                            <div class="col-sm-8">
+                                <input asp-for="Student.MotherName" class="form-control" id="motherName">
+                                <span asp-validation-for="Student.MotherName" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label asp-for="Student.SchoolName" class="col-sm-4 col-form-label">School Name</label>
+                            <div class="col-sm-8">
+                                <input asp-for="Student.SchoolName" class="form-control" id="schoolName">
+                                <span asp-validation-for="Student.SchoolName" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label asp-for="Student.Class" class="col-sm-4 col-form-label">Class</label>
+                            <div class="col-sm-8">
+                                <input asp-for="Student.Class" class="form-control" id="class">
+                                <span asp-validation-for="Student.Class" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label asp-for="Student.ImageFile" class="form-label col-sm-4">Profile Picture</label>
+                            <div class="col-sm-8">
+                                <input asp-for="Student.ImageFile" class="form-control" type="file" id="imageFile" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-check mb-3">
+                    <input type="checkbox" class="form-check-input" id="showCourseDetails" />
+                    <label class="form-check-label" for="showCourseDetails">Show Course & Fee Details</label>
+                </div>
+
+
+                <div id="courseFeeSection" class="row" style="display:none;">
+                    <!-- Left Column (Courses, Schedule, Method) -->
+                    <div class="col-md-6 border-end">
+                        <div class="mb-4 row">
+                            <label asp-for="SelectCourceId" class="col-sm-4 col-form-label">Course</label>
+                            <div class="col-sm-8">
+                                <select id="courseId" asp-for="SelectCourceId" class="form-control course-dropdown"
+                                        asp-items="@(new SelectList(Model.Courses, "Id", "CourseName"))">
+                                    <option value="">---Select Course Name---</option>
+                                </select>
+                                <span asp-validation-for="SelectCourceId" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-4 row">
+                            <label asp-for="ScheduleId" class="col-sm-4 col-form-label">Schedule</label>
+                            <div class="col-sm-8">
+                                <select id="scheduleid" asp-for="ScheduleId" class="form-control schedule-dropdownn"
+                                        asp-items="@(new SelectList(Model.Schedules, "Id", "Name"))">
+                                    <option value="">---Select Schedule---</option>
+                                </select>
+                                <span asp-validation-for="ScheduleId" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-4 row">
+                            <label asp-for="MethodId" class="col-sm-4 col-form-label">Method</label>
+                            <div class="col-sm-8">
+                                <select id="methodid" asp-for="MethodId" class="form-control method-dropdown"
+                                        asp-items="@(new SelectList(Model.Methods, "Id", "Name"))">
+                                    <option value="">---Select Method---</option>
+                                </select>
+                                <span asp-validation-for="MethodId" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column (Fees Section) -->
+                    <div class="col-md-6">
+                        <div class="mb-3 row">
+                            <label asp-for="TotalFee" class="col-sm-4 col-form-label">Total Fee</label>
+                            <div class="col-sm-8">
+                                <input type="number" asp-for="TotalFee" id="totalFee" class="form-control" value="0" />
+                                <span asp-validation-for="TotalFee" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label asp-for="PaidAmount" class="col-sm-4 col-form-label">Paid Amount</label>
+                            <div class="col-sm-8">
+                                <input type="number" asp-for="PaidAmount" id="paidAmount" class="form-control" />
+                                <span asp-validation-for="PaidAmount" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label asp-for="DueAmount" class="col-sm-4 col-form-label">Due Amount</label>
+                            <div class="col-sm-8">
+                                <input type="number" asp-for="DueAmount" id="dueAmount" class="form-control" readonly value="0" />
+                                <span asp-validation-for="DueAmount" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Buttons -->
+                <div class="d-flex justify-content-end gap-2 mt-3">
+                    <button type="reset" class="btn btn-danger">Reset</button>
+                    <button type="submit" class="btn btn-warning">Save</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    $(document).ready(function(){
+
+        $(".course-dropdown,.schedule-dropdownn, .method-dropdown").select2({ width: '100%', allowClear: true });
+        $(document).on('select2:open', () => { document.querySelector('.select2-search__field').focus(); });
+
+
+        $("#myForm").on('submit',function(){
+            var name=$("#cName").val().trim();
+            var contactNo=$("#contactNo").val().trim();
+            var address=$("#address").val().trim();
+            var fatherName=$("#fatherName").val().trim();
+            var fatherContactNo=$("#fatherContactNo").val().trim();
+
+
+            var offset=20;
+            var container=$("body");
+
+            if(name==="")offset=createAlert("❌ Name is Required",container,offset)
+            if(contactNo==="")offset=createAlert("❌ Contact No is Required",container,offset)
+            if(address==="")offset=createAlert("❌ Address is Required",container,offset)
+            if(fatherName==="")offset=createAlert("❌ Father Name is Required",container,offset)
+            if(fatherContactNo==="")offset=createAlert("❌ Father Contact no is Required",container,offset)
+
+
+               if($(".field-alert").length >0) return false;
+               this.submit();
+        });
+
+            $("#showCourseDetails").change(function () {
+                if ($(this).is(":checked")) {
+                    $("#courseFeeSection").slideDown();
+                } else {
+                    $("#courseFeeSection").slideUp();
+                }
+            });
+
+       function updateDueAmount() {
+        var totalFee = parseFloat($("#totalFee").val()) || 0;
+        var paidAmount = parseFloat($("#paidAmount").val()) || 0;
+        var dueAmount = totalFee - paidAmount;
+        $("#dueAmount").val(dueAmount.toFixed(0));
+       }
+
+      $('#courseId').on('change', function(){
+            var id = $(this).val();
+            if(id){
+                $.get('/Enrollment/GetCourseFee', { courseId: id }, function(fee){
+                    $('#totalFee').val(fee);
+                    updateDueAmount();
+                });
+            } else {
+                $('#totalFee').val(0);
+                updateDueAmount();
+            }
+      });
+
+        $("#totalFee, #paidAmount").on("input", updateDueAmount);
+
+        $("#totalFee, #paidAmount").on("focus", function(){
+            $(this).select();
+        });
+
+    })
+</script>
