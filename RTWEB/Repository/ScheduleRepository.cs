@@ -48,5 +48,15 @@ namespace ZPWEB.Repository
             var data=_db.Schedules.Find(id);
             _db.Schedules.Remove(data);
         }
+
+        public bool TransactionCheck(int id)
+        {
+            return _db.Schedules.Any(x=>x.Id== id);
+        }
+
+        public Schedule GetById(int id)
+        {
+            return _db.Schedules.Find(id);
+        }
     }
 }

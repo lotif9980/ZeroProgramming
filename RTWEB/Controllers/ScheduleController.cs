@@ -61,13 +61,26 @@ namespace ZPWEB.Controllers
 
         public IActionResult Delete(int id)
         {
+            var schedule=_unitofWork.ScheduleRepository.TransactionCheck(id);
+            if (schedule)
+            {
+                TempData["Message"] = "❌ It is not possible to delete the schedule.";
+                TempData["MessageType"] = "danger";
+                return RedirectToAction("Index");
+            }
 
             _unitofWork.ScheduleRepository.Delete(id);
             _unitofWork.Complete();
-            TempData["Message"] = "❌ Schedule has been Delete";
-            TempData["MessageType"] = "danger";
+            TempData["Message"] = "✅ Schedule has been Delete";
+            TempData["MessageType"] = "success";
 
             return RedirectToAction("Index");
+        }
+
+        public IActionResult Edit(int id)
+        {
+            var schedule=_unitofWork.ScheduleRepository.GetById(id);
+            return View(schedule);
         }
     }
 }
