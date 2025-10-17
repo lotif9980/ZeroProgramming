@@ -25,6 +25,7 @@
                                 <th style="width: 10px">Sl</th>
                                 <th>Code</th>
                                 <th>Name</th>
+                                <th>IMG</th>
                                 <th>Contact</th>
                                 <th>Address</th>
                                 <th style="width:20px;text-align:center">Action</th>
@@ -40,6 +41,26 @@
                                     <td>@count</td>
                                     <td>@item.Code</td>
                                     <td>@item.Name</td>
+                                    <td>
+                                        @if (!string.IsNullOrEmpty(item.Picture))
+                                        {
+                                            <div class="mt-2">
+                                                <img src="~/Students/@item.Picture"
+                                                     alt="Profile Picture"
+                                                     class="img-thumbnail shadow-sm"
+                                                     style="width:80px; height:80px; object-fit:cover;" />
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="mt-2">
+                                                <img src="~/images/default.png"
+                                                     alt="Default Image"
+                                                     class="img-thumbnail shadow-sm"
+                                                     style="width:80px; height:80px; object-fit:cover;" />
+                                            </div>
+                                        }
+                                    </td>
                                     <td>@item.ContactNo</td>
                                     <td>@item.Address</td>
                                     <td>
