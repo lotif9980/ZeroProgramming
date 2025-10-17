@@ -1,0 +1,109 @@
+﻿@using ZPWEB.Models
+@model Student
+
+<div class="container mt-4">
+    <div class="card shadow-sm">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Student Details Information</h5>
+            <a class="btn btn-primary btn-sm" asp-action="Index">Existing Students</a>
+        </div>
+
+        <div class="card-body">
+            <div class="row">
+                <!-- Left Column -->
+                <div class="col-md-6 border-end">
+                    <div class="mb-3 row">
+                        <label class="col-sm-4 col-form-label fw-bold">ID</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-plaintext">@Model.Id</p>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label class="col-sm-4 col-form-label fw-bold">Code</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-plaintext">@Model.Code</p>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label class="col-sm-4 col-form-label fw-bold">Name</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-plaintext">@Model.Name</p>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label class="col-sm-4 col-form-label fw-bold">Contact No</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-plaintext">@Model.ContactNo</p>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label class="col-sm-4 col-form-label fw-bold">Address</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-plaintext">@Model.Address</p>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label class="col-sm-4 col-form-label fw-bold">Father Name</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-plaintext">@Model.FatherName</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="col-md-6">
+                    <div class="mb-3 row">
+                        <label class="col-sm-4 col-form-label fw-bold">Father Phone</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-plaintext">@Model.FatherPhoneNumber</p>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label class="col-sm-4 col-form-label fw-bold">Mother Name</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-plaintext">@Model.MotherName</p>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label class="col-sm-4 col-form-label fw-bold">School Name</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-plaintext">@Model.SchoolName</p>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label class="col-sm-4 col-form-label fw-bold">Class</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-plaintext">@Model.Class</p>
+                        </div>
+                    </div>
+
+                    <!-- Profile Picture -->
+                    <div class="mb-3 row">
+                        <label class="col-sm-4 col-form-label fw-bold">Profile Picture</label>
+                        <div class="col-sm-8">
+                            <img src="@(
+                                                                 string.IsNullOrEmpty(Model.Picture)
+                                                                 ? Url.Content("~/images/default.png")
+                                                                 : Url.Content("~/Students/" + Model.Picture)
+                                                        )"
+                                 class="img-thumbnail shadow-sm"
+                                 style="width:120px; height:120px; object-fit:cover;" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-4 d-flex justify-content-end">
+                <a class="btn btn-secondary" asp-action="Index">Back</a>
+            </div>
+        </div>
+    </div>
+</div>

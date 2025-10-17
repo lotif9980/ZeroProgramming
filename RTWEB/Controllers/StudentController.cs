@@ -388,5 +388,11 @@ namespace ZPWEB.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public IActionResult Details(int id)
+        {
+            var data =_unitofWork.StudentRepository.GetById(id);
+            return View(data);
+        }
     }
 }

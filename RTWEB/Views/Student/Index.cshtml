@@ -65,12 +65,14 @@
                                     <td>@item.Address</td>
                                     <td>
                                         <div class="d-flex justify-content-center btn-group-sm ">
-
-                                            <a class="btn btn-primary ms-2" asp-route-id="@item.Id" asp- controller="Student" asp-action="Edit">
+                                            <a class="btn btn-outline-success ms-2 btn-sm" asp-controller="Student" asp-action="Details" asp-route-id="@item.Id" >
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                            <a class="btn btn-outline-primary ms-2" asp-route-id="@item.Id" asp- controller="Student" asp-action="Edit">
                                                 <i class="fa fa-edit"></i>
                                             </a>
 
-                                            <a class="btn btn-danger ms-2"
+                                            <a class="btn btn-outline-danger ms-2"
                                                asp-route-id="@item.Id"
                                                asp-controller="Student" asp-action="Delete">
                                                 <i class="fa fa-trash"></i>
