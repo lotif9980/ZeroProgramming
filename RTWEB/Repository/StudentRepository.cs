@@ -74,5 +74,10 @@ namespace ZPWEB.Repository
         {
             return _db.Students.Find(id);
         }
+
+        public void Edit(Student student)
+        {
+           _db.Students.Update(student);
+        }
     }
 }

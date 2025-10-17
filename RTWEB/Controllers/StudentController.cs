@@ -329,5 +329,64 @@ namespace ZPWEB.Controllers
             var student=_unitofWork.StudentRepository.GetById(id);
             return View(student);
         }
+
+        [HttpPost]
+        public IActionResult Update(Student student)
+        {
+            
+            var oldStudent = _unitofWork.StudentRepository.GetById(student.Id);
+            if (oldStudent == null)
+            {
+                TempData["Message"] = "❌ Student not found";
+                TempData["MessageType"] = "danger";
+                return RedirectToAction("Index");
+            }
+
+            
+            if (student.ImageFile == null)
+            {
+                student.Picture = oldStudent.Picture;
+            }
+            else
+            {
+                
+                string code = oldStudent.Code.Replace(" ", "_");
+                string extension = Path.GetExtension(student.ImageFile.FileName);
+                string fileName = $"{student.Id}_{code}{extension}";
+
+                string path = Path.Combine(_env.ContentRootPath, "wwwroot", "Students");
+                if (!Directory.Exists(path))
+                    Directory.CreateDirectory(path);
+
+                string fullPath = Path.Combine(path, fileName);
+
+                using (FileStream fs = System.IO.File.Create(fullPath))
+                {
+                    student.ImageFile.CopyTo(fs);
+                    fs.Flush();
+                }
+
+                student.Picture = fileName;
+            }
+
+            
+            oldStudent.Name = student.Name;
+            oldStudent.ContactNo = student.ContactNo;
+            oldStudent.Address = student.Address;
+            oldStudent.FatherName = student.FatherName;
+            oldStudent.FatherPhoneNumber = student.FatherPhoneNumber;
+            oldStudent.MotherName = student.MotherName;
+            oldStudent.SchoolName = student.SchoolName;
+            oldStudent.Class = student.Class;
+            oldStudent.Picture = student.Picture;
+
+            _unitofWork.StudentRepository.Update(oldStudent);
+            _unitofWork.Complete();
+
+            TempData["Message"] = "✅ Updated Successfully!";
+            TempData["MessageType"] = "success";
+
+            return RedirectToAction("Index");
+        }
     }
 }
