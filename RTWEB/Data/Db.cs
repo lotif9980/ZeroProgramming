@@ -7,9 +7,7 @@ namespace ZPWEB.Data
     {
         public static string ConnectionString = "Server=localhost;Database=zpweb;User Id=sa;Password=Test_123;Encrypt=False";
 
-        //public static string ConnectionString = "Server=103.125.252.243;Database=emobiletest;User Id=oct_emobiletest;Password=fjexd3oykltgzivpnush;Encrypt=False";
-        //TempData["Message"] = "✅ Save Successful";
-        //TempData["Message"] = "❌ Save Successful";
+        
         public Db()
         {
 

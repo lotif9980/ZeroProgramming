@@ -201,8 +201,29 @@
 				</div>
 			</form>
 
+            <div class="text-center mt-3">
+                <p class="mb-1 text-muted">
+                    <strong>Demo Admin</strong>
+                </p>
+                <p class="mb-2 text-muted">
+                    AdminUser: <code>admin</code><br />
+                    Password: <code>1234</code>
+                </p>
+
+                <button type="button" id="fillDemo"
+                        class="btn btn-outline-secondary btn-sm">
+                    Use Demo Credentials
+                </button>
+            </div>
 		</div>
 	</div>
 
 
 </body>
+
+<script>
+    document.getElementById("fillDemo").addEventListener("click", function () {
+        document.getElementById("Username").value = "admin";
+        document.getElementById("password").value = "1234";
+    });
+</script>
